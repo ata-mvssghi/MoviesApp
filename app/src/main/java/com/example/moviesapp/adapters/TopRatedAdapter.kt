@@ -12,7 +12,6 @@ import com.example.moviesapp.databinding.MoiveListItemBinding
 import com.example.moviesapp.model.Movie
 
 class TopRatedAdapter(
-    val naveController  :NavController
 ): RecyclerView.Adapter<TopRatedAdapter.MovieViewHolder>(){
     inner class MovieViewHolder(val binding : MoiveListItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie,index : Int) {
@@ -60,7 +59,7 @@ class TopRatedAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it,position+1) }
         holder.itemView.setOnClickListener {
-            naveController.navigate()
+           // naveController.navigate()
         }
     }
 
