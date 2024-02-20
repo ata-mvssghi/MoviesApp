@@ -30,7 +30,7 @@
             <WebView
                 android:id="@+id/webView"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="7dp"
@@ -120,12 +120,36 @@
                         android:textSize="16sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="40dp"
-                        android:layout_height="100dp"
+                        android:id="@+id/cast_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="21dp"
-                        android:layout_marginTop="75dp" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="-2dp"
+                        android:layout_marginTop="76dp"
+                        android:layout_marginEnd="0dp" />
+
+                    <ProgressBar
+                        android:id="@+id/actors_prog"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="185dp"
+                        android:layout_marginTop="100dp" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cast_recycler"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="152dp"
+                        android:layout_marginTop="36dp"
+                        android:text="mm,k"
+                        android:textColor="#EDE5E5" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 

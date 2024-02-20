@@ -91,12 +91,6 @@ class MoviesFragment : Fragment() {
                 Log.i("imdb","new list size  = ${viewModel.topRatedMovies?.size}")
                 moviesAdapter.notifyDataSetChanged()
             }
-            "similar products fetched"->{
-
-            }
-            "more similar products fetched"->{
-
-            }
         }
     }
 
