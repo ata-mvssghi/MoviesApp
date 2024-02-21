@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nave_graph"
     app:startDestination="@id/moviesFragment">
 
@@ -19,5 +20,17 @@
         <argument
             android:name="movie"
             app:argType="com.example.moviesapp.model.Movie" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_peopleDetailFragment"
+            app:destination="@id/peopleDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/peopleDetailFragment"
+        android:name="com.example.moviesapp.PeopleDetailFragment"
+        android:label="fragment_people_detail"
+        tools:layout="@layout/fragment_people_detail" >
+        <argument
+            android:name="person_id"
+            app:argType="integer" />
     </fragment>
 </navigation>

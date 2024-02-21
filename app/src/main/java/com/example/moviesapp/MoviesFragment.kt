@@ -53,6 +53,7 @@ class MoviesFragment : Fragment() {
                 Log.i("imdb", "Received: $value")
             }
         }
+
         moviesAdapter = TopRatedAdapter(findNavController())
         binding.topRatedMoivesList.adapter = moviesAdapter
         var isScrolling = false

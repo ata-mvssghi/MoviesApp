@@ -12,6 +12,7 @@ import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -56,7 +57,7 @@ class MovieDetailFragment : Fragment() {
                 Log.i("imdb", "Received: $value")
             }
         }
-        actorsAdapter = ActorsAdapter()
+        actorsAdapter = ActorsAdapter(findNavController())
         val layoutManager = GridLayoutManager(requireContext(),2)
         binding.castRecycler.layoutManager = layoutManager
         binding.castRecycler.adapter = actorsAdapter
