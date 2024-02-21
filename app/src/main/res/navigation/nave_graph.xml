@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nave_graph">
+    android:id="@+id/nave_graph"
+    app:startDestination="@id/moviesFragment">
 
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.example.moviesapp.MoviesFragment"
+        android:label="MoviesFragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.moviesapp.MovieDetailFragment"
+        android:label="MovieDetailFragment" >
+        <argument
+            android:name="movie"
+            app:argType="com.example.moviesapp.model.Movie" />
+    </fragment>
 </navigation>

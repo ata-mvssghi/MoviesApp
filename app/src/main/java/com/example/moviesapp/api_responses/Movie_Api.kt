@@ -22,6 +22,7 @@ fun Movie_Api.toMovie(): Movie {
     return Movie(
         id = id, poster_path = poster_path, title = title, vote_average = vote_average,
         vote_count = vote_count, original_language = original_language,
-        release_date = release_date, overview = overview
+        release_date = release_date, overview = overview,
+        original_picture =  backdrop_path
     )
 }

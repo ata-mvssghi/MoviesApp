@@ -1,70 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/actor_constraint"
-    android:layout_width="225dp"
-    android:layout_height="100dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/actor_constraint"
+        android:layout_width="205dp"
+        android:layout_height="110dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/actor_wrapper_card"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/actor_wrapper_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="#4A4949"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
-            android:id="@+id/relative_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/view2"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:elevation="12dp"
-                app:cardCornerRadius="40dp">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/view2"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:elevation="12dp"
+                    app:cardCornerRadius="40dp">
 
-                <ImageView
-                    android:id="@+id/profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ha" />
-            </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ha" />
+                </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/acrtor_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="101dp"
-                android:layout_marginTop="20dp"
-                android:text="Clint Eastwood"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/acrtor_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="103dp"
+                    android:layout_marginTop="19dp"
+                    android:maxWidth="100dp"
+                    android:text="Clint Eastwood sdgsg"
+                    android:textColor="#FAF1F1"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/character"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/acrtor_name"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="103dp"
-                android:layout_marginTop="13dp"
-                android:text="Blondy"
-                android:textColor="#706D6D"
-                android:textSize="12sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/character"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/acrtor_name"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="104dp"
+                    android:layout_marginTop="13dp"
+                    android:maxWidth="100dp"
+                    android:text="Blondy"
+                    android:textColor="#A19A9A"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

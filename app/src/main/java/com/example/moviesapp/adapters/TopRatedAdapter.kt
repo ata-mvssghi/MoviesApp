@@ -1,17 +1,22 @@
 package com.example.moviesapp.adapters
 
+import android.telephony.PhoneNumberUtils.formatNumber
+import android.text.Layout.Directions
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviesapp.MoviesFragmentDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.MoiveListItemBinding
 import com.example.moviesapp.model.Movie
 
 class TopRatedAdapter(
+    val naveController :NavController
 ): RecyclerView.Adapter<TopRatedAdapter.MovieViewHolder>(){
     inner class MovieViewHolder(val binding : MoiveListItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie,index : Int) {
@@ -59,7 +64,8 @@ class TopRatedAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it,position+1) }
         holder.itemView.setOnClickListener {
-           // naveController.navigate()
+           val action =  MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(differ.currentList[position])
+            naveController.navigate(action)
         }
     }
 

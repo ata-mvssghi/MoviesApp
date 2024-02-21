@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 class MovieDetailRepository {
     private val retrofit : Retrofit = RetrofitInstance.getRetrofitInstance()
     private val apiService  = retrofit.create(ApiService::class.java)
-    fun getCredits(movieId :Int) : List<Cast>?{
+    suspend fun getCredits(movieId :Int) : List<Cast>?{
         val response = apiService.getMovieCredits(movieId)
         if(response.isSuccessful){
             return response.body()?.cast

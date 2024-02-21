@@ -19,7 +19,7 @@ class ActorsAdapter(
             binding.acrtorName.text = cast.original_name
             binding.character.text = cast.character
             val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
-            val imageSize = "w185"
+            val imageSize = "w300"
             val backdropPath = cast.profile_path
             val imageUrl = "$tmdbBaseUrl$imageSize$backdropPath"
 
@@ -55,6 +55,7 @@ class ActorsAdapter(
     override fun onBindViewHolder(holder: ActorsViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it) }
         holder.itemView.setOnClickListener {
+
             // naveController.navigate()
         }
     }
