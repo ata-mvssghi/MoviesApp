@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_movieDetailFragment_to_peopleDetailFragment"
             app:destination="@id/peopleDetailFragment" />
+        <action
+            android:id="@+id/action_movieDetailFragment_self"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/peopleDetailFragment"

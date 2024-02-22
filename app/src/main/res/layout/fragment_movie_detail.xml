@@ -129,9 +129,9 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginStart="-2dp"
-                        android:layout_marginTop="76dp"
-                        android:layout_marginEnd="0dp"
+                        android:layout_marginStart="-1dp"
+                        android:layout_marginTop="61dp"
+                        android:layout_marginEnd="-1dp"
                         android:padding="5dp" />
 
                     <ProgressBar
@@ -141,8 +141,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="185dp"
-                        android:layout_marginTop="100dp" />
+                        android:layout_marginStart="180dp"
+                        android:layout_marginTop="146dp" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -165,8 +165,67 @@
                 android:layout_height="wrap_content"
                 android:text="mm,k"
                 android:textColor="#EDE5E5"
-                tools:layout_editor_absoluteX="152dp"
-                tools:layout_editor_absoluteY="861dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/similar_cardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:cardBackgroundColor="#4A4949"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginTop="17dp"
+                        app:srcCompat="@drawable/three_dots" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="19dp"
+                        android:layout_toEndOf="@+id/imageView5"
+                        android:text="Similar Movies"
+                        android:textColor="#DCD3D3"
+                        android:textSize="16sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/simirlar_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView3"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginEnd="0dp" />
+
+                    <ProgressBar
+                        android:id="@+id/Similar_progress"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="181dp"
+                        android:layout_marginTop="152dp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

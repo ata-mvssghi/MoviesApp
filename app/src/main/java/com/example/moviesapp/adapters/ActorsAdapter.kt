@@ -28,7 +28,7 @@ class ActorsAdapter(
 
             Glide.with(itemView.context)
                 .load(imageUrl)
-                .placeholder(R.drawable.placeholder)
+                .placeholder(R.drawable.profieplace_holder)
                 .into(binding.profile)
         }
     }

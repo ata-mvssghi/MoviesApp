@@ -4,13 +4,16 @@ import android.telephony.PhoneNumberUtils.formatNumber
 import android.text.Layout.Directions
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviesapp.MovieDetailFragmentDirections
 import com.example.moviesapp.MoviesFragmentDirections
+import com.example.moviesapp.OnItemClickerListener
 import com.example.moviesapp.PeopleDetailFragmentDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.MoiveListItemBinding
@@ -18,7 +21,7 @@ import com.example.moviesapp.databinding.MovieListItemSecondBinding
 import com.example.moviesapp.model.Movie
 
 class HorizontalAdapter(
-    val naveController :NavController
+    private val itemCLickListener : OnItemClickerListener
 ): RecyclerView.Adapter<HorizontalAdapter.HorizontalMovieViewHolder>(){
     inner class HorizontalMovieViewHolder(val binding : MovieListItemSecondBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
@@ -65,8 +68,7 @@ class HorizontalAdapter(
     override fun onBindViewHolder(holder: HorizontalMovieViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it) }
         holder.itemView.setOnClickListener {
-            val action =  PeopleDetailFragmentDirections.actionPeopleDetailFragmentToMovieDetailFragment(differ.currentList[position])
-            naveController.navigate(action)
+           itemCLickListener.onItemClick(differ.currentList[position])
         }
     }
 

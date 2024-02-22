@@ -18,10 +18,11 @@ import com.example.moviesapp.adapters.ActorsAdapter
 import com.example.moviesapp.adapters.HorizontalAdapter
 import com.example.moviesapp.api_responses.people.PeopleResponse
 import com.example.moviesapp.databinding.FragmentPeopleDetailBinding
+import com.example.moviesapp.model.Movie
 import com.example.moviesapp.viewModels.PersonDetailViewModel
 import kotlinx.coroutines.launch
 
-class PeopleDetailFragment : Fragment() {
+class PeopleDetailFragment : Fragment() , OnItemClickerListener {
     lateinit var binding : FragmentPeopleDetailBinding
     lateinit var viewModel : PersonDetailViewModel
     lateinit var creditAdadpter : HorizontalAdapter
@@ -39,7 +40,7 @@ class PeopleDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PersonDetailViewModel::class.java)
         personId = arguments?.getInt("person_id")!!
         viewModel.getPersonDetail(personId)
-        creditAdadpter = HorizontalAdapter(findNavController())
+        creditAdadpter = HorizontalAdapter(this)
         viewModel.getCreditList(personId)
         // Inflate the layout for this fragment
         return binding.root
@@ -83,6 +84,17 @@ class PeopleDetailFragment : Fragment() {
             .load(imageUrl)
             .placeholder(R.drawable.placeholder)
             .into(binding.imageView2)
-        //TODO
+        binding.biography.text = personDetail.biography
+        binding.Born.text = personDetail.birthday
+        if(personDetail.deathday != null) {
+            binding.deathDate.text = personDetail.deathday.toString()
+            binding.deadOrNot.visibility = View.VISIBLE
+            binding.deathDate.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onItemClick(movie: Movie) {
+        val action = PeopleDetailFragmentDirections.actionPeopleDetailFragmentToMovieDetailFragment(movie)
+        findNavController().navigate(action)
     }
 }

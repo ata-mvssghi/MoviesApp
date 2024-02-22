@@ -7,11 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviesapp.ApiService
 import com.example.moviesapp.RetrofitInstance
 import com.example.moviesapp.api_responses.credt.Cast
+import com.example.moviesapp.api_responses.similar_movies.toMovie
+import com.example.moviesapp.model.Movie
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 
 class CreditViewModel(): ViewModel() {
+     var similarMovies : MutableList <Movie> ? = null
      var actors : MutableList<Cast>?=null
      var  videoKey :String? = null
     private val retrofit : Retrofit = RetrofitInstance.getRetrofitInstance()
@@ -50,6 +53,25 @@ class CreditViewModel(): ViewModel() {
                         }
                     }
                     emitEvent("video fetched")
+                }
+                else{
+                    Log.e("imdb",response.errorBody().toString())
+                    Log.e("imdb",response.code().toString())
+                }
+            }
+        }
+        catch (e:Exception){
+            Log.e("imdb",e.message.toString())
+        }
+    }
+    fun getSimilarMoviesList(movieId: Int){
+        try {
+            viewModelScope.launch {
+                val response = apiService.getSimilarMovies(movieId)
+                if(response.isSuccessful){
+                    val list = response.body()?.results as MutableList
+                    similarMovies = list.map { it.toMovie() }.toMutableList()
+                    emitEvent("similar movies fetched")
                 }
                 else{
                     Log.e("imdb",response.errorBody().toString())

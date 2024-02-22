@@ -4,6 +4,7 @@ import com.example.moviesapp.api_responses.TopRatedResponse
 import com.example.moviesapp.api_responses.credt.CreditResponse
 import com.example.moviesapp.api_responses.horizontal_list_movies.HorizontalListMoviesResponse
 import com.example.moviesapp.api_responses.people.PeopleResponse
+import com.example.moviesapp.api_responses.similar_movies.SimilarMoviesResponse
 import com.example.moviesapp.api_responses.video.Video
 import retrofit2.Response
 import retrofit2.http.GET
@@ -36,4 +37,9 @@ interface ApiService {
     suspend fun getPersonCredits(
         @Path("person_id") personId: Int,
     ): Response<HorizontalListMoviesResponse>
+    @GET("movie/{movie_id}/similar")
+    @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
+    suspend fun getSimilarMovies(
+        @Path("movie_id") personId: Int,
+    ): Response<SimilarMoviesResponse>
 }

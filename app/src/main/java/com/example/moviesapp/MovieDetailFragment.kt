@@ -17,17 +17,20 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.moviesapp.adapters.ActorsAdapter
+import com.example.moviesapp.adapters.HorizontalAdapter
+import com.example.moviesapp.api_responses.credt.Cast
 import com.example.moviesapp.databinding.FragmentMovieDetailBinding
 import com.example.moviesapp.model.Movie
 import com.example.moviesapp.viewModels.CreditViewModel
 import kotlinx.coroutines.launch
 
 
-class MovieDetailFragment : Fragment() {
+class MovieDetailFragment : Fragment()  , OnItemClickerListener{
     lateinit var binding : FragmentMovieDetailBinding
     lateinit var webView : WebView
     lateinit var viewModel : CreditViewModel
     lateinit var actorsAdapter : ActorsAdapter
+    lateinit var similarMoviesAdapter : HorizontalAdapter
     lateinit var passedArgument : Movie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,16 +61,28 @@ class MovieDetailFragment : Fragment() {
             }
         }
         actorsAdapter = ActorsAdapter(findNavController())
-        val layoutManager = GridLayoutManager(requireContext(),2)
-        binding.castRecycler.layoutManager = layoutManager
+        similarMoviesAdapter = HorizontalAdapter(this)
+        val layoutManager1 = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
+        binding.simirlarRecycler.layoutManager = layoutManager1
+        binding.simirlarRecycler.adapter =similarMoviesAdapter
+        val layoutManager2 = GridLayoutManager(requireContext(),2)
+        binding.castRecycler.layoutManager = layoutManager2
         binding.castRecycler.adapter = actorsAdapter
         viewModel.getActorsList(passedArgument.id)
+        viewModel.getSimilarMoviesList(passedArgument.id)
     }
     fun handleEvent(event:String){
         when(event){
             "actors list fetched" ->{
-                val shortedList = viewModel.actors?.take(18)
-                actorsAdapter.differ.submitList(shortedList)
+                val filteredList :MutableList<Cast> = mutableListOf()
+                val fullList = viewModel.actors?.take(18)
+                if (fullList != null) {
+                    for(cast in fullList){
+                        if(cast.known_for_department.equals("Acting"))
+                            filteredList.add(cast)
+                    }
+                }
+                actorsAdapter.differ.submitList(filteredList)
                 binding.actorsProg.visibility = View.GONE
                 Log.i("imdb",viewModel.actors?.size.toString())
                 actorsAdapter.notifyDataSetChanged()
@@ -75,6 +90,11 @@ class MovieDetailFragment : Fragment() {
             "video fetched"->{
                 val key = viewModel.videoKey
                 setUpWebView(key)
+            }
+            "similar movies fetched"->{
+                similarMoviesAdapter.differ.submitList(viewModel.similarMovies)
+                similarMoviesAdapter.notifyDataSetChanged()
+                binding.SimilarProgress.visibility = View.GONE
             }
 
         }
@@ -103,5 +123,10 @@ class MovieDetailFragment : Fragment() {
             .load(imageUrl)
             .placeholder(R.drawable.placeholder)
             .into(binding.posterDetail)
+    }
+
+    override fun onItemClick(movie: Movie) {
+        val action =  MovieDetailFragmentDirections.actionMovieDetailFragmentSelf(movie)
+        findNavController().navigate(action)
     }
 }
