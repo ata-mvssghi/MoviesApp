@@ -9,7 +9,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2.Orientation
 import com.bumptech.glide.Glide
+import com.example.moviesapp.adapters.ActorsAdapter
+import com.example.moviesapp.adapters.HorizontalAdapter
 import com.example.moviesapp.api_responses.people.PeopleResponse
 import com.example.moviesapp.databinding.FragmentPeopleDetailBinding
 import com.example.moviesapp.viewModels.PersonDetailViewModel
@@ -18,6 +24,7 @@ import kotlinx.coroutines.launch
 class PeopleDetailFragment : Fragment() {
     lateinit var binding : FragmentPeopleDetailBinding
     lateinit var viewModel : PersonDetailViewModel
+    lateinit var creditAdadpter : HorizontalAdapter
      var personId : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +39,8 @@ class PeopleDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PersonDetailViewModel::class.java)
         personId = arguments?.getInt("person_id")!!
         viewModel.getPersonDetail(personId)
+        creditAdadpter = HorizontalAdapter(findNavController())
+        viewModel.getCreditList(personId)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -44,12 +53,20 @@ class PeopleDetailFragment : Fragment() {
                 Log.i("imdb", "Received: $value")
             }
         }
+        val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.creditsRecyclerView.layoutManager = layoutManager
+        binding.creditsRecyclerView.adapter = creditAdadpter
     }
 
     fun handleEvent(event:String){
         when(event){
             "person detail info fetched" ->{
                 setUpInfo(viewModel.personDetail)
+            }
+            "credit fetched"->{
+                creditAdadpter.differ.submitList(viewModel.creditList)
+                creditAdadpter.notifyDataSetChanged()
+                binding.perosonCreditProg.visibility = View.GONE
             }
 
 
