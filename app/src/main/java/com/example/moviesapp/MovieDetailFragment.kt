@@ -135,7 +135,7 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
     }
 
     override fun onItemClick(movie: Movie , notImportantBool: Boolean) {
-        val action =  MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(movie,isMovie)
+        val action =  MovieDetailFragmentDirections.actionMovieDetailFragmentSelf(movie,isMovie)
         findNavController().navigate(action)
     }
 }
