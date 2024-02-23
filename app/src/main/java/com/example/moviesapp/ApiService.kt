@@ -16,11 +16,19 @@ interface ApiService {
     @GET("movie/top_rated?language=en-US")
     @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
     suspend fun getTopRatedMovies(@Query("page") page: Int) : Response<TopRatedResponse>
+    @GET("tv/top_rated?language=en-US")
+    @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
+    suspend fun getTopRatedSeries(@Query("page") page: Int) : Response<TopRatedResponse>
 
     @GET("movie/{movie_id}/credits")
     @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
     suspend fun getMovieCredits(
         @Path("movie_id") movieId: Int,
+    ): Response<CreditResponse>
+    @GET("tv/{series_id}/credits")
+    @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
+    suspend fun getSerialCredits(
+        @Path("series_id") serialId: Int,
     ): Response<CreditResponse>
     @GET("movie/{movie_id}/videos")
     @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
@@ -37,9 +45,14 @@ interface ApiService {
     suspend fun getPersonCredits(
         @Path("person_id") personId: Int,
     ): Response<HorizontalListMoviesResponse>
-    @GET("movie/{movie_id}/similar")
+    @GET("movie/{series_id}/similar")
     @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
     suspend fun getSimilarMovies(
-        @Path("movie_id") personId: Int,
+        @Path("series_id") personId: Int,
+    ): Response<SimilarMoviesResponse>
+    @GET("tv/{series_id}/similar")
+    @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
+    suspend fun getSimilarSeries(
+        @Path("series_id") personId: Int,
     ): Response<SimilarMoviesResponse>
 }

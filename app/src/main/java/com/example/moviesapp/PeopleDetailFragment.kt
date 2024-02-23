@@ -90,11 +90,13 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
             binding.deathDate.text = personDetail.deathday.toString()
             binding.deadOrNot.visibility = View.VISIBLE
             binding.deathDate.visibility = View.VISIBLE
+            binding.deadOrNot.text = "BORN"
         }
     }
 
-    override fun onItemClick(movie: Movie) {
-        val action = PeopleDetailFragmentDirections.actionPeopleDetailFragmentToMovieDetailFragment(movie)
+
+    override fun onItemClick(movie: Movie, isMovie: Boolean) {
+        val action = PeopleDetailFragmentDirections.actionPeopleDetailFragmentToMovieDetailFragment(movie,isMovie)
         findNavController().navigate(action)
     }
 }

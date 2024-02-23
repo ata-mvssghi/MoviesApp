@@ -17,6 +17,7 @@ import com.example.moviesapp.model.Movie
 
 class TopRatedAdapter(
     val naveController :NavController
+    ,val isMovie:Boolean
 ): RecyclerView.Adapter<TopRatedAdapter.MovieViewHolder>(){
     inner class MovieViewHolder(val binding : MoiveListItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie,index : Int) {
@@ -26,8 +27,8 @@ class TopRatedAdapter(
             val trimmedDate = fullDate.substring(0,3)
             val releaseDate = trimmedDate + "(${formatNumber(movie.vote_count)})"
             binding.score.text = releaseDate
-            val seprated  = movie.release_date.split("-")
-            binding.prodDate.text = seprated[0]
+            val seprated  = movie.release_date?.split("-")
+            binding.prodDate.text = seprated?.get(0) ?: "no data"
             val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
             val imageSize = "w500"
             val backdropPath = movie.poster_path
@@ -64,7 +65,7 @@ class TopRatedAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it,position+1) }
         holder.itemView.setOnClickListener {
-           val action =  MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(differ.currentList[position])
+           val action =  MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(differ.currentList[position],isMovie)
             naveController.navigate(action)
         }
     }

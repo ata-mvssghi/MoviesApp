@@ -33,7 +33,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginTop="5dp"
+                android:background="#292828"
                 android:backgroundTint="#3C3B3B"
+                android:backgroundTintMode="src_over"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,8 +143,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="180dp"
-                        android:layout_marginTop="146dp" />
+                        android:layout_marginStart="181dp"
+                        android:layout_marginTop="83dp" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -159,24 +161,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name_detail" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mm,k"
-                android:textColor="#EDE5E5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/similar_cardView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 app:cardBackgroundColor="#4A4949"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2">
+                app:layout_constraintTop_toBottomOf="@+id/cardView">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -197,8 +190,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="19dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="18dp"
                         android:layout_toEndOf="@+id/imageView5"
                         android:text="Similar Movies"
                         android:textColor="#DCD3D3"

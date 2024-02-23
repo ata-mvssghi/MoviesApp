@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 
 
 class MovieDetailFragment : Fragment()  , OnItemClickerListener{
+    var isMovie : Boolean = true
     lateinit var binding : FragmentMovieDetailBinding
     lateinit var webView : WebView
     lateinit var viewModel : CreditViewModel
@@ -48,12 +49,13 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
         val serializable =arguments?.getSerializable("movie")
         passedArgument = serializable as Movie
         viewModel.getVideoKey(passedArgument.id)
-        setUpPrimaryViews()
+        setUpPrimaryViews(isMovie)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isMovie = arguments?.getBoolean("isMovie") ?: true
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.stateFlow.collect { value ->
                 handleEvent(value)
@@ -68,8 +70,8 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
         val layoutManager2 = GridLayoutManager(requireContext(),2)
         binding.castRecycler.layoutManager = layoutManager2
         binding.castRecycler.adapter = actorsAdapter
-        viewModel.getActorsList(passedArgument.id)
-        viewModel.getSimilarMoviesList(passedArgument.id)
+        viewModel.getActorsList(passedArgument.id,isMovie)
+        viewModel.getSimilarMoviesList(passedArgument.id,isMovie)
     }
     fun handleEvent(event:String){
         when(event){
@@ -106,15 +108,22 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
         val videoId = movieKey // Replace with the YouTube video ID
         val youtubeUrl = "https://www.youtube.com/embed/$videoId"
         webView.loadData("<iframe width=\"100%\" height=\"100%\" src=\"$youtubeUrl\" frameborder=\"0\" allowfullscreen></iframe>", "text/html", "utf-8")
-
         // Set a WebChromeClient to handle video playback
         webView.webChromeClient = WebChromeClient()
     }
-    fun setUpPrimaryViews(){
-        binding.nameDetail.text = passedArgument.title
-        binding.review.text = passedArgument.overview
-        binding.releaseDetail.text = passedArgument.release_date
-        binding.languaeDetail.text = passedArgument.original_language
+    fun setUpPrimaryViews(isMovie: Boolean){
+        if(isMovie) {
+            binding.nameDetail.text = passedArgument.title
+            binding.review.text = passedArgument.overview
+            binding.releaseDetail.text = passedArgument.release_date
+            binding.languaeDetail.text = passedArgument.original_language
+        }
+        else{
+            binding.nameDetail.text = passedArgument.title
+            binding.review.text = passedArgument.overview
+            binding.releaseDetail.text = passedArgument.release_date
+            binding.languaeDetail.text = passedArgument.original_language
+        }
         val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
         val imageSize = "w300"
         val backdropPath = passedArgument.poster_path
@@ -125,8 +134,8 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
             .into(binding.posterDetail)
     }
 
-    override fun onItemClick(movie: Movie) {
-        val action =  MovieDetailFragmentDirections.actionMovieDetailFragmentSelf(movie)
+    override fun onItemClick(movie: Movie , notImportantBool: Boolean) {
+        val action =  MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(movie,isMovie)
         findNavController().navigate(action)
     }
 }

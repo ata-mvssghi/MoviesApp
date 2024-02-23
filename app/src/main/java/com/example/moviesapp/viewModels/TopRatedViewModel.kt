@@ -7,6 +7,7 @@ import com.example.moviesapp.model.Movie
 import com.example.moviesapp.repository.TopRatedMoviesRepo
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import java.util.function.BinaryOperator
 
 class TopRatedViewModel(
     private val repository : TopRatedMoviesRepo
@@ -14,10 +15,11 @@ class TopRatedViewModel(
     var topRatedMovies : MutableList<Movie>? = null
     private val _stateFlow = MutableSharedFlow<String>()
     val stateFlow: MutableSharedFlow<String> get() = _stateFlow
-    fun getTopRatedMovies(page:Int){
+    fun getTopRatedMovies(page:Int, isMovie :Boolean){
         viewModelScope.launch {
             try {
-                val result = repository.getTopRatedMovies(page) ?: throw Exception("something went wrong ")
+                Log.i("imdb","top rated movie api called with page = $page")
+                val result = repository.getTopRatedMovies(page,isMovie) ?: throw Exception("something went wrong ")
                 val newData =  result as MutableList<Movie>?
                 if(topRatedMovies == null)
                     topRatedMovies = newData

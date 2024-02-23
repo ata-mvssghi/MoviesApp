@@ -7,10 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviesapp.ApiService
 import com.example.moviesapp.RetrofitInstance
 import com.example.moviesapp.api_responses.credt.Cast
+import com.example.moviesapp.api_responses.credt.CreditResponse
+import com.example.moviesapp.api_responses.similar_movies.SimilarMoviesResponse
 import com.example.moviesapp.api_responses.similar_movies.toMovie
 import com.example.moviesapp.model.Movie
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import retrofit2.Retrofit
 
 class CreditViewModel(): ViewModel() {
@@ -21,10 +24,14 @@ class CreditViewModel(): ViewModel() {
     private val apiService  = retrofit.create(ApiService::class.java)
     private val _stateFlow = MutableSharedFlow<String>()
     val stateFlow: MutableSharedFlow<String> get() = _stateFlow
-    fun getActorsList(movieId :Int) {
+    fun getActorsList(movieId :Int,isMovie: Boolean) {
         viewModelScope.launch {
             try {
-                val response = apiService.getMovieCredits(movieId)
+                val response : Response<CreditResponse>
+                if(isMovie)
+                    response = apiService.getMovieCredits(movieId)
+                else
+                    response = apiService.getSerialCredits(movieId)
                 if (response.isSuccessful) {
                     val newData =     response.body()?.cast as MutableList<Cast>
                     if(actors==null)
@@ -64,10 +71,14 @@ class CreditViewModel(): ViewModel() {
             Log.e("imdb",e.message.toString())
         }
     }
-    fun getSimilarMoviesList(movieId: Int){
+    fun getSimilarMoviesList(movieId: Int,isMovie: Boolean){
         try {
             viewModelScope.launch {
-                val response = apiService.getSimilarMovies(movieId)
+                val response :Response<SimilarMoviesResponse>
+                if(isMovie)
+                     response = apiService.getSimilarMovies(movieId)
+                else
+                    response = apiService.getSimilarSeries(movieId)
                 if(response.isSuccessful){
                     val list = response.body()?.results as MutableList
                     similarMovies = list.map { it.toMovie() }.toMutableList()

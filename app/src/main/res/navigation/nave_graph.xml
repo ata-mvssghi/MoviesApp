@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nave_graph"
-    app:startDestination="@id/moviesFragment">
+    app:startDestination="@id/movieHomeFragment">
 
     <fragment
         android:id="@+id/moviesFragment"
@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_moviesFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+        <argument
+            android:name="isMovie"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
@@ -26,6 +29,9 @@
         <action
             android:id="@+id/action_movieDetailFragment_self"
             app:destination="@id/movieDetailFragment" />
+        <argument
+            android:name="isMovie"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/peopleDetailFragment"
@@ -38,5 +44,13 @@
         <action
             android:id="@+id/action_peopleDetailFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieHomeFragment"
+        android:name="com.example.moviesapp.MovieHomeFragment"
+        android:label="MovieHomeFragment" >
+        <action
+            android:id="@+id/action_movieHomeFragment_to_moviesFragment"
+            app:destination="@id/moviesFragment" />
     </fragment>
 </navigation>

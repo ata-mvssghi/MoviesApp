@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.log
 
 class MoviesFragment : Fragment() {
+    var isMovie : Boolean = true
     var page = 1
     lateinit var binding : FragmentMoviesBinding
     lateinit var viewModel  : TopRatedViewModel
@@ -28,13 +29,13 @@ class MoviesFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentMoviesBinding.inflate(inflater)
-
         val movieRepo = this.context?.let { TopRatedMoviesRepo(it) }
         viewModel = ViewModelProvider(
             this,
@@ -47,6 +48,8 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("imdb", "on view created called")
+        isMovie = arguments?.getBoolean("isMovie") ?: true
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.stateFlow.collect { value ->
                 handleEvent(value)
@@ -54,11 +57,22 @@ class MoviesFragment : Fragment() {
             }
         }
 
-        moviesAdapter = TopRatedAdapter(findNavController())
+        moviesAdapter = TopRatedAdapter(findNavController(),isMovie)
         binding.topRatedMoivesList.adapter = moviesAdapter
         var isScrolling = false
         val layoutManager = binding.topRatedMoivesList.layoutManager as LinearLayoutManager
-        viewModel.getTopRatedMovies(1)
+        if(viewModel.topRatedMovies == null) {
+            viewModel.getTopRatedMovies(1,isMovie)
+            Log.i("imdb", "view model list was null")
+        }
+        else{
+            page = viewModel.topRatedMovies!!.size/20
+            Log.i("imdb","view model list was not null and the page now is = $page")
+            moviesAdapter.differ.currentList.clear()
+            moviesAdapter.differ.submitList(viewModel.topRatedMovies)
+            moviesAdapter.notifyDataSetChanged()
+        }
+
         binding.topRatedMoivesList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -74,7 +88,7 @@ class MoviesFragment : Fragment() {
                     //if user scrolls till second last row then new data will be fetched
                     if (visibleItemCount + pastVisibleItemCount >= totalItemCount-2) {
                         // Load more data
-                        viewModel.getTopRatedMovies(++page)
+                        viewModel.getTopRatedMovies(++page,isMovie)
                         Log.i("imdb","fetching movies with page  = $page")
                         //binding.loadMoreProgress.visibility = View.VISIBLE
                         isScrolling = false

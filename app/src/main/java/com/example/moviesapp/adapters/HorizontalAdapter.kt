@@ -30,8 +30,8 @@ class HorizontalAdapter(
             val trimmedScore = fullScore.substring(0,3)
             val releaseScore = trimmedScore + "(${formatNumber(movie.vote_count)})"
             binding.scoreList.text = releaseScore
-            val seprated  = movie.release_date.split("-")
-            binding.release.text = seprated[0]
+            val seprated  = movie.release_date?.split("-")
+            binding.release.text = seprated?.get(0) ?: "no data"
             val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
             val imageSize = "w500"
             val backdropPath = movie.poster_path
@@ -68,7 +68,7 @@ class HorizontalAdapter(
     override fun onBindViewHolder(holder: HorizontalMovieViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it) }
         holder.itemView.setOnClickListener {
-           itemCLickListener.onItemClick(differ.currentList[position])
+           itemCLickListener.onItemClick(differ.currentList[position],true)
         }
     }
 

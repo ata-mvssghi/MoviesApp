@@ -34,8 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="TextView"
-                android:textColor="#2E302D"
+                android:textColor="#EAEFE7"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="TextView"
                 android:textColor="#615D5D"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                android:text="TextView"
+                android:textColor="#EAE4E4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/career" />
 
@@ -71,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="48dp"
-                android:text="BORN"
                 android:textColor="#787575"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/biography" />
@@ -94,7 +91,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="48dp"
-                android:text="TextView"
                 android:textColor="#CFC8C8"
                 app:layout_constraintStart_toEndOf="@+id/textView1"
                 app:layout_constraintTop_toBottomOf="@+id/biography" />
