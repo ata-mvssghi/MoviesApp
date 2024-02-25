@@ -2,7 +2,6 @@ package com.example.moviesapp
 
 import android.os.Bundle
 import android.util.Log
-import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,8 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,19 +19,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.moviesapp.adapters.ActorsAdapter
 import com.example.moviesapp.adapters.HorizontalAdapter
+import com.example.moviesapp.adapters.PhotosAdapter
 import com.example.moviesapp.api_responses.credt.Cast
+import com.example.moviesapp.api_responses.photos.PhotosResponse
+import com.example.moviesapp.api_responses.photos.toPhoto
 import com.example.moviesapp.databinding.FragmentMovieDetailBinding
 import com.example.moviesapp.model.Movie
+import com.example.moviesapp.model.PhotoDataClass
 import com.example.moviesapp.viewModels.CreditViewModel
+import com.example.moviesapp.viewModels.PhotosShardViewModel
 import kotlinx.coroutines.launch
-
 
 class MovieDetailFragment : Fragment()  , OnItemClickerListener{
     var isMovie : Boolean = true
     lateinit var binding : FragmentMovieDetailBinding
     lateinit var webView : WebView
     lateinit var viewModel : CreditViewModel
+    private val photoViewModel : PhotosShardViewModel by activityViewModels()
     lateinit var actorsAdapter : ActorsAdapter
+    lateinit var photosAdapter : PhotosAdapter
     lateinit var similarMoviesAdapter : HorizontalAdapter
     lateinit var passedArgument : Movie
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +55,7 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
         webView = binding.webView
         val serializable =arguments?.getSerializable("movie")
         passedArgument = serializable as Movie
-        viewModel.getVideoKey(passedArgument.id)
+        viewModel.getVideoKey(passedArgument.id,isMovie)
         setUpPrimaryViews(isMovie)
         return binding.root
     }
@@ -64,14 +71,20 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
         }
         actorsAdapter = ActorsAdapter(findNavController())
         similarMoviesAdapter = HorizontalAdapter(this)
+        photosAdapter = PhotosAdapter(this)
         val layoutManager1 = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
         binding.simirlarRecycler.layoutManager = layoutManager1
         binding.simirlarRecycler.adapter =similarMoviesAdapter
-        val layoutManager2 = GridLayoutManager(requireContext(),2)
-        binding.castRecycler.layoutManager = layoutManager2
+        val layoutManager2 = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
+        binding.photoesRecycler.layoutManager = layoutManager2
+        binding.photoesRecycler.adapter =photosAdapter
+        val layoutManager3 = GridLayoutManager(requireContext(),2)
+        binding.castRecycler.layoutManager = layoutManager3
         binding.castRecycler.adapter = actorsAdapter
         viewModel.getActorsList(passedArgument.id,isMovie)
         viewModel.getSimilarMoviesList(passedArgument.id,isMovie)
+        viewModel.getImages(passedArgument.id,isMovie)
+
     }
     fun handleEvent(event:String){
         when(event){
@@ -97,6 +110,18 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
                 similarMoviesAdapter.differ.submitList(viewModel.similarMovies)
                 similarMoviesAdapter.notifyDataSetChanged()
                 binding.SimilarProgress.visibility = View.GONE
+            }
+            "images fetched"->{
+                val prevList  = viewModel.images!!
+                val photos : MutableList<PhotoDataClass> = mutableListOf()
+                val posters = prevList.posters
+                photos.addAll( posters.map { it.toPhoto() })
+                val allPhotos : MutableList<PhotoDataClass> = mutableListOf()
+                allPhotos.addAll(photos)
+                allPhotos.addAll(prevList.backdrops.map { it.toPhoto() })
+                photosAdapter.differ.submitList(photos)
+                photoViewModel.photoList = allPhotos
+                binding.photesProgress.visibility = View.GONE
             }
 
         }
@@ -134,8 +159,15 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
             .into(binding.posterDetail)
     }
 
+    override fun onPhotoCLickListener(position: Int) {
+        val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToFullScreenFragement(position)
+        findNavController().navigate(action)
+    }
+
+
     override fun onItemClick(movie: Movie , notImportantBool: Boolean) {
         val action =  MovieDetailFragmentDirections.actionMovieDetailFragmentSelf(movie,isMovie)
         findNavController().navigate(action)
     }
 }
+

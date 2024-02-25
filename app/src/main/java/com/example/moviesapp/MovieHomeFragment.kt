@@ -51,6 +51,10 @@ class MovieHomeFragment : Fragment() , OnItemClickerListener{
                 Log.i("imdb", "Received: $value")
             }
         }
+        binding.button.setOnClickListener {
+            val action = MovieHomeFragmentDirections.actionMovieHomeFragmentToMoviesFragment(false)
+            findNavController().navigate(action)
+        }
         setUpRecyclers()
 
     }
@@ -80,26 +84,30 @@ class MovieHomeFragment : Fragment() , OnItemClickerListener{
     fun setUpRecyclers(){
         val layoutManager1 = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
-        binding.topRatedMoviesRecycler.layoutManager = layoutManager1
-        binding.topRatedMoviesRecycler.adapter = topRatedAdapter
+        binding.topRatedHomeRecycler.layoutManager = layoutManager1
+        binding.topRatedHomeRecycler.adapter = topRatedAdapter
         val layoutManager2 = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
-        binding.popularMoviesRecycler.layoutManager = layoutManager2
-        binding.popularMoviesRecycler.adapter = popularAdapter
+        binding.popularHomeRecycler.layoutManager = layoutManager2
+        binding.popularHomeRecycler.adapter = popularAdapter
         val layoutManager3 = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
-        binding.upcomingMovieRecycler.layoutManager = layoutManager3
-        binding.upcomingMovieRecycler.adapter = upComingAdapter
+        binding.upcomingHomeRecycler.layoutManager = layoutManager3
+        binding.upcomingHomeRecycler.adapter = upComingAdapter
         val layoutManager4 = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
-        binding.nowPlayingRecycler.layoutManager = layoutManager4
-        binding.nowPlayingRecycler.adapter = nowPlayingAdapter
+        binding.nowPlayingHomeRecycler.layoutManager = layoutManager4
+        binding.nowPlayingHomeRecycler.adapter = nowPlayingAdapter
     }
     fun initiateAdapter(){
         topRatedAdapter = HorizontalAdapter(this)
         upComingAdapter = HorizontalAdapter(this)
         nowPlayingAdapter = HorizontalAdapter(this)
         popularAdapter = HorizontalAdapter(this)
+    }
+
+    override fun onPhotoCLickListener(position: Int) {
+        //We have nothing to do with this function here
     }
 
     override fun onItemClick(movie: Movie, isMovie: Boolean) {

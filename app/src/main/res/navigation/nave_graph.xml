@@ -32,6 +32,9 @@
         <argument
             android:name="isMovie"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_fullScreenFragement"
+            app:destination="@id/fullScreenFragement" />
     </fragment>
     <fragment
         android:id="@+id/peopleDetailFragment"
@@ -44,6 +47,9 @@
         <action
             android:id="@+id/action_peopleDetailFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_peopleDetailFragment_to_fullScreenFragement"
+            app:destination="@id/fullScreenFragement" />
     </fragment>
     <fragment
         android:id="@+id/movieHomeFragment"
@@ -55,5 +61,14 @@
         <action
             android:id="@+id/action_movieHomeFragment_to_movieDetailFragment2"
             app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullScreenFragement"
+        android:name="com.example.moviesapp.FullScreenFragement"
+        android:label="fragment_full_screen_fragement"
+        tools:layout="@layout/fragment_full_screen_fragement" >
+        <argument
+            android:name="position"
+            app:argType="integer" />
     </fragment>
 </navigation>

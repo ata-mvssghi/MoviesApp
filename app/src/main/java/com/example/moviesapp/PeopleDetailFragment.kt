@@ -65,7 +65,9 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
                 setUpInfo(viewModel.personDetail)
             }
             "credit fetched"->{
-                creditAdadpter.differ.submitList(viewModel.creditList)
+                val originalList = viewModel.creditList
+                val sortedList = originalList.sortedBy { it.popularity }
+                creditAdadpter.differ.submitList(sortedList.reversed())
                 creditAdadpter.notifyDataSetChanged()
                 binding.perosonCreditProg.visibility = View.GONE
             }
@@ -92,6 +94,10 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
             binding.deathDate.visibility = View.VISIBLE
             binding.deadOrNot.text = "BORN"
         }
+    }
+
+    override fun onPhotoCLickListener(position: Int) {
+        //We have nothing to do with this function here
     }
 
 

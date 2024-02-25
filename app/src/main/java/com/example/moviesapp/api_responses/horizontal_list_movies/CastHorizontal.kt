@@ -24,4 +24,4 @@ data class CastHorizontal(
 fun CastHorizontal.toMovie() : Movie =
     Movie(id = id , original_language = original_language , original_picture =  backdrop_path , poster_path =  poster_path
     , vote_average =  vote_average, vote_count = vote_count, release_date =  release_date, title =  title
-    , overview =  overview)
+    , overview =  overview , popularity =  popularity)

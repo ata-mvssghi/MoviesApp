@@ -1,6 +1,5 @@
 package com.example.moviesapp.api_responses.similar_movies
 
-import com.example.moviesapp.api_responses.similar_movies.Result
 import com.example.moviesapp.model.Movie
 
 data class Result(
@@ -22,4 +21,4 @@ data class Result(
 fun Result.toMovie() : Movie =
     Movie(id = id , original_language = original_language , original_picture =  original_language,
     poster_path =  poster_path, title =  title , vote_average =  vote_average , vote_count =  vote_count,
-    overview =  overview, release_date =  release_date)
+    overview =  overview, release_date =  release_date, popularity =  popularity)

@@ -4,6 +4,7 @@ import com.example.moviesapp.api_responses.TopRatedResponse
 import com.example.moviesapp.api_responses.credt.CreditResponse
 import com.example.moviesapp.api_responses.horizontal_list_movies.HorizontalListMoviesResponse
 import com.example.moviesapp.api_responses.people.PeopleResponse
+import com.example.moviesapp.api_responses.photos.PhotosResponse
 import com.example.moviesapp.api_responses.similar_movies.SimilarMoviesResponse
 import com.example.moviesapp.api_responses.video.Video
 import retrofit2.Response
@@ -45,6 +46,11 @@ interface ApiService {
     suspend fun getMovieVideo(
         @Path("movie_id") movieId: Int,
     ): Response<Video>
+    @GET("tv/{series_id}/videos")
+    @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
+    suspend fun getSerialVideo(
+        @Path("series_id") movieId: Int,
+    ): Response<Video>
     @GET("person/{person_id}")
     @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
     suspend fun getPersonDetails(
@@ -65,5 +71,15 @@ interface ApiService {
     suspend fun getSimilarSeries(
         @Path("series_id") personId: Int,
     ): Response<SimilarMoviesResponse>
+    @GET("movie/{movie_id}/images")
+    @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
+    suspend fun getMoviePictures(
+        @Path("movie_id") movieId: Int,
+    ): Response<PhotosResponse>
+    @GET("tv/{series_id}/images")
+    @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
+    suspend fun getSerialPictures(
+        @Path("series_id") movieId: Int,
+    ): Response<PhotosResponse>
 
 }
