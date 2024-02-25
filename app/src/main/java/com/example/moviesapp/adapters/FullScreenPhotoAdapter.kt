@@ -1,5 +1,6 @@
 package com.example.moviesapp.adapters
 
+
 import android.telephony.PhoneNumberUtils.formatNumber
 import android.text.Layout.Directions
 import android.view.LayoutInflater
@@ -22,25 +23,25 @@ import com.example.moviesapp.api_responses.photos.Poster
 import com.example.moviesapp.databinding.MoiveListItemBinding
 import com.example.moviesapp.databinding.MovieListItemSecondBinding
 import com.example.moviesapp.databinding.PhotoItemBinding
+import com.example.moviesapp.databinding.PhotoRealSizeItemBinding
 import com.example.moviesapp.model.Movie
 import com.example.moviesapp.model.PhotoDataClass
 
-class PhotosAdapter(
-    private val itemCLickListener : OnItemClickerListener,
-): RecyclerView.Adapter<PhotosAdapter.HorizontalPhotosViewHolder>(){
-    inner class HorizontalPhotosViewHolder(val binding : PhotoItemBinding):RecyclerView.ViewHolder(binding.root) {
+class FullScreenPhotoAdapter(
+): RecyclerView.Adapter<FullScreenPhotoAdapter.HorizontalPhotosFullScreenViewHolder>(){
+    inner class HorizontalPhotosFullScreenViewHolder(val binding : PhotoRealSizeItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: PhotoDataClass) {
-                val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
+            val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
             val imageSize : String
             if(photo.isPoster)
-                 imageSize = "w500"
+                imageSize = "original"
             else
-                imageSize = "w300"
-                val imageUrl = "$tmdbBaseUrl$imageSize${photo.file_path}"
-                Glide.with(itemView.context)
-                    .load(imageUrl)
-                    .placeholder(R.drawable.placeholder)
-                    .into(binding.photoItem)
+                imageSize = "original"
+            val imageUrl = "$tmdbBaseUrl$imageSize${photo.file_path}"
+            Glide.with(itemView.context)
+                .load(imageUrl)
+                .placeholder(R.drawable.placeholder)
+                .into(binding.originalSizePhoto)
 
 
         }
@@ -57,20 +58,17 @@ class PhotosAdapter(
     val differ = AsyncListDiffer(this, differCallback)
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalPhotosViewHolder {
-        val binding = PhotoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HorizontalPhotosViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalPhotosFullScreenViewHolder {
+        val binding = PhotoRealSizeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HorizontalPhotosFullScreenViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return  differ.currentList.size
     }
 
-    override fun onBindViewHolder(holder: HorizontalPhotosViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HorizontalPhotosFullScreenViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it) }
-        holder.itemView.setOnClickListener {
-            itemCLickListener.onPhotoCLickListener(position)
-        }
     }
 
 }

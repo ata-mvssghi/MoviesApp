@@ -69,6 +69,10 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
                 Log.i("imdb", "Received: $value")
             }
         }
+        binding.morePhotosMovieDetail.setOnClickListener {
+            photoViewModel.chosenPhotoPosition = 0
+            onPhotoCLickListener(0)
+        }
         actorsAdapter = ActorsAdapter(findNavController())
         similarMoviesAdapter = HorizontalAdapter(this)
         photosAdapter = PhotosAdapter(this)
@@ -114,11 +118,11 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
             "images fetched"->{
                 val prevList  = viewModel.images!!
                 val photos : MutableList<PhotoDataClass> = mutableListOf()
-                val posters = prevList.posters
+                val posters = prevList.posters.sortedBy { it.vote_average }.take(10).reversed()
                 photos.addAll( posters.map { it.toPhoto() })
                 val allPhotos : MutableList<PhotoDataClass> = mutableListOf()
                 allPhotos.addAll(photos)
-                allPhotos.addAll(prevList.backdrops.map { it.toPhoto() })
+                allPhotos.addAll(prevList.backdrops.map { it.toPhoto() }.sortedBy { it.vote_average }.reversed())
                 photosAdapter.differ.submitList(photos)
                 photoViewModel.photoList = allPhotos
                 binding.photesProgress.visibility = View.GONE
@@ -160,6 +164,7 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
     }
 
     override fun onPhotoCLickListener(position: Int) {
+        photoViewModel.chosenPhotoPosition = position
         val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToFullScreenFragement(position)
         findNavController().navigate(action)
     }

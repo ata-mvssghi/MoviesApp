@@ -5,28 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.viewpager2.widget.ViewPager2
+import com.example.moviesapp.adapters.FullScreenPhotoAdapter
+import com.example.moviesapp.databinding.FragmentFullScreenFragementBinding
+import com.example.moviesapp.model.PhotoDataClass
+import com.example.moviesapp.viewModels.PhotosShardViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FullScreenFragement.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FullScreenFragement : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    lateinit var binding : FragmentFullScreenFragementBinding
+    lateinit var adapter  : FullScreenPhotoAdapter
+    private val photoViewModel : PhotosShardViewModel by activityViewModels()
+    lateinit var photoList : List<PhotoDataClass>
+    var currentITem : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -34,26 +27,20 @@ class FullScreenFragement : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_full_screen_fragement, container, false)
+        binding = FragmentFullScreenFragementBinding.inflate(inflater)
+        photoList = photoViewModel.photoList
+        val viewPager = binding.fullScreenViewPager
+        adapter = FullScreenPhotoAdapter()
+        adapter.differ.submitList(photoList)
+        viewPager.adapter = adapter
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                photoViewModel.chosenPhotoPosition = position
+            }
+        })
+         val notthing = arguments?.let { it.getInt("position") }!!
+        viewPager.setCurrentItem(photoViewModel.chosenPhotoPosition)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FullScreenFragement.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FullScreenFragement().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

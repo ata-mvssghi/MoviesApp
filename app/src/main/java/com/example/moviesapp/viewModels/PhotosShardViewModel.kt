@@ -6,6 +6,7 @@ import com.example.moviesapp.model.PhotoDataClass
 
 class PhotosShardViewModel : ViewModel() {
     lateinit var photoList: List<PhotoDataClass>
+    var currentItem = 0
 
     var chosenPhotoPosition: Int = 0
 }

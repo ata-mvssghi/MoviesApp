@@ -278,6 +278,21 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="179dp"
                         android:layout_marginTop="105dp" />
+
+                    <TextView
+                        android:id="@+id/more_photos_movieDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginEnd="27dp"
+                        android:clickable="true"
+                        android:text="See More"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#4696CA"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
