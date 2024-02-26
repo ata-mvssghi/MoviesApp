@@ -12,11 +12,12 @@ import com.example.moviesapp.databinding.FragmentFullScreenFragementBinding
 import com.example.moviesapp.model.PhotoDataClass
 import com.example.moviesapp.viewModels.PhotosShardViewModel
 
-class FullScreenFragement : Fragment() {
+class FullScreenFragement() : Fragment() {
     lateinit var binding : FragmentFullScreenFragementBinding
     lateinit var adapter  : FullScreenPhotoAdapter
     private val photoViewModel : PhotosShardViewModel by activityViewModels()
     lateinit var photoList : List<PhotoDataClass>
+    lateinit var type :String
     var currentITem : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,18 +29,22 @@ class FullScreenFragement : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFullScreenFragementBinding.inflate(inflater)
-        photoList = photoViewModel.photoList
+        type = arguments?.getString("type")!!
+        if(type.equals("moviePhoto"))
+             photoList = photoViewModel.photoList
+        else
+            photoList = photoViewModel.profilePictures
         val viewPager = binding.fullScreenViewPager
         adapter = FullScreenPhotoAdapter()
         adapter.differ.submitList(photoList)
         viewPager.adapter = adapter
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                photoViewModel.chosenPhotoPosition = position
+                     photoViewModel.chosenMoviePhotoPosition = position
             }
         })
          val notthing = arguments?.let { it.getInt("position") }!!
-        viewPager.setCurrentItem(photoViewModel.chosenPhotoPosition)
+        viewPager.setCurrentItem(photoViewModel.chosenMoviePhotoPosition)
         return binding.root
     }
 

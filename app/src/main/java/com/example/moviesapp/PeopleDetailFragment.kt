@@ -6,26 +6,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2.Orientation
 import com.bumptech.glide.Glide
-import com.example.moviesapp.adapters.ActorsAdapter
 import com.example.moviesapp.adapters.HorizontalAdapter
+import com.example.moviesapp.adapters.PhotosAdapter
 import com.example.moviesapp.api_responses.people.PeopleResponse
 import com.example.moviesapp.databinding.FragmentPeopleDetailBinding
 import com.example.moviesapp.model.Movie
 import com.example.moviesapp.viewModels.PersonDetailViewModel
+import com.example.moviesapp.viewModels.PhotosShardViewModel
 import kotlinx.coroutines.launch
 
 class PeopleDetailFragment : Fragment() , OnItemClickerListener {
     lateinit var binding : FragmentPeopleDetailBinding
     lateinit var viewModel : PersonDetailViewModel
     lateinit var creditAdadpter : HorizontalAdapter
+    lateinit var photosAdapter : PhotosAdapter
+    private val photoViewModel : PhotosShardViewModel by activityViewModels()
      var personId : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
         viewModel = ViewModelProvider(this).get(PersonDetailViewModel::class.java)
         personId = arguments?.getInt("person_id")!!
         viewModel.getPersonDetail(personId)
+        viewModel.getPersonProfile(personId)
         creditAdadpter = HorizontalAdapter(this)
         viewModel.getCreditList(personId)
         // Inflate the layout for this fragment
@@ -57,6 +59,10 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
         val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.creditsRecyclerView.layoutManager = layoutManager
         binding.creditsRecyclerView.adapter = creditAdadpter
+        photosAdapter = PhotosAdapter(this)
+        binding.profileRecycler.adapter = photosAdapter
+        val layoutManager2 = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
+        binding.profileRecycler.layoutManager = layoutManager2
     }
 
     fun handleEvent(event:String){
@@ -70,6 +76,14 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
                 creditAdadpter.differ.submitList(sortedList.reversed())
                 creditAdadpter.notifyDataSetChanged()
                 binding.perosonCreditProg.visibility = View.GONE
+            }
+            "profiles fetched"->{
+                Log.i("imdb","profile list size is ${viewModel.profilePics.size}")
+                val photos  = viewModel.profilePics
+                photosAdapter.differ.submitList(photos)
+                photosAdapter.notifyDataSetChanged()
+                photoViewModel.profilePictures = photos
+                binding.profileProgress.visibility = View.GONE
             }
 
 
@@ -93,11 +107,14 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
             binding.deadOrNot.visibility = View.VISIBLE
             binding.deathDate.visibility = View.VISIBLE
             binding.deadOrNot.text = "BORN"
+            binding.deadOrNot.visibility = View.VISIBLE
         }
     }
 
     override fun onPhotoCLickListener(position: Int) {
-        //We have nothing to do with this function here
+        photoViewModel.chosenMoviePhotoPosition = position
+        val action = PeopleDetailFragmentDirections.actionPeopleDetailFragmentToFullScreenFragement("profile")
+        findNavController().navigate(action)
     }
 
 

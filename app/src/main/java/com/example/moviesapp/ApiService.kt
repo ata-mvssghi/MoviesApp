@@ -4,6 +4,7 @@ import com.example.moviesapp.api_responses.TopRatedResponse
 import com.example.moviesapp.api_responses.credt.CreditResponse
 import com.example.moviesapp.api_responses.horizontal_list_movies.HorizontalListMoviesResponse
 import com.example.moviesapp.api_responses.people.PeopleResponse
+import com.example.moviesapp.api_responses.personImages.PeopleProfiles
 import com.example.moviesapp.api_responses.photos.PhotosResponse
 import com.example.moviesapp.api_responses.similar_movies.SimilarMoviesResponse
 import com.example.moviesapp.api_responses.video.Video
@@ -79,7 +80,13 @@ interface ApiService {
     @GET("tv/{series_id}/images")
     @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
     suspend fun getSerialPictures(
-        @Path("series_id") movieId: Int,
+        @Path("series_id") serialId: Int,
     ): Response<PhotosResponse>
+    @GET("person/{person_id}/images")
+    @Headers("accept: application/json", "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTVjZmVhZDQ1ZTE5NmNhOGE0MTYzMDM0ZmZkY2UwOCIsInN1YiI6IjY1MjY0NzU1ZWE4NGM3MDBjYTBlN2M2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zMJIxrqfxB_-GewKu_lX6kGKoJTICw6AHtpF7_EfFRg")
+    suspend fun getPersonProfiles(
+        @Path("person_id") personId: Int,
+    ): Response<PeopleProfiles>
+
 
 }

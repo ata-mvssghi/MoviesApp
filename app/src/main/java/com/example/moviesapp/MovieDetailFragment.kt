@@ -21,7 +21,6 @@ import com.example.moviesapp.adapters.ActorsAdapter
 import com.example.moviesapp.adapters.HorizontalAdapter
 import com.example.moviesapp.adapters.PhotosAdapter
 import com.example.moviesapp.api_responses.credt.Cast
-import com.example.moviesapp.api_responses.photos.PhotosResponse
 import com.example.moviesapp.api_responses.photos.toPhoto
 import com.example.moviesapp.databinding.FragmentMovieDetailBinding
 import com.example.moviesapp.model.Movie
@@ -70,7 +69,7 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
             }
         }
         binding.morePhotosMovieDetail.setOnClickListener {
-            photoViewModel.chosenPhotoPosition = 0
+            photoViewModel.chosenMoviePhotoPosition = 0
             onPhotoCLickListener(0)
         }
         actorsAdapter = ActorsAdapter(findNavController())
@@ -124,6 +123,7 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
                 allPhotos.addAll(photos)
                 allPhotos.addAll(prevList.backdrops.map { it.toPhoto() }.sortedBy { it.vote_average }.reversed())
                 photosAdapter.differ.submitList(photos)
+                photosAdapter.notifyDataSetChanged()
                 photoViewModel.photoList = allPhotos
                 binding.photesProgress.visibility = View.GONE
             }
@@ -164,8 +164,8 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
     }
 
     override fun onPhotoCLickListener(position: Int) {
-        photoViewModel.chosenPhotoPosition = position
-        val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToFullScreenFragement(position)
+        photoViewModel.chosenMoviePhotoPosition = position
+        val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToFullScreenFragement("moviePhoto")
         findNavController().navigate(action)
     }
 

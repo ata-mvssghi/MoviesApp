@@ -32,11 +32,7 @@ class FullScreenPhotoAdapter(
     inner class HorizontalPhotosFullScreenViewHolder(val binding : PhotoRealSizeItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: PhotoDataClass) {
             val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
-            val imageSize : String
-            if(photo.isPoster)
-                imageSize = "original"
-            else
-                imageSize = "original"
+            val imageSize : String = "original"
             val imageUrl = "$tmdbBaseUrl$imageSize${photo.file_path}"
             Glide.with(itemView.context)
                 .load(imageUrl)

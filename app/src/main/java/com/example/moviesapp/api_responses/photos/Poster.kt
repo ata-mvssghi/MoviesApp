@@ -1,5 +1,6 @@
 package com.example.moviesapp.api_responses.photos
 
+import com.example.moviesapp.Constants
 import com.example.moviesapp.model.PhotoDataClass
 
 data class Poster(
@@ -12,4 +13,4 @@ data class Poster(
     val width: Int
 )
 fun Poster.toPhoto() : PhotoDataClass =
-    PhotoDataClass(aspect_ratio, file_path, height, iso_639_1, vote_average, vote_count, width,true)
+    PhotoDataClass(aspect_ratio, file_path, height, iso_639_1, vote_average, vote_count, width,Constants.ImageType.poster)

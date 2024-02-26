@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviesapp.Constants
 import com.example.moviesapp.MovieDetailFragmentDirections
 import com.example.moviesapp.MoviesFragmentDirections
 import com.example.moviesapp.OnItemClickerListener
@@ -31,11 +32,14 @@ class PhotosAdapter(
     inner class HorizontalPhotosViewHolder(val binding : PhotoItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: PhotoDataClass) {
                 val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
-            val imageSize : String
-            if(photo.isPoster)
+            var imageSize : String? = "w185"
+            if(photo.type == Constants.ImageType.poster)
                  imageSize = "w500"
-            else
+            else if(photo.type == Constants.ImageType.backDrop)
                 imageSize = "w300"
+            else if(photo.type == Constants.ImageType.profile)
+                imageSize == "w185"
+
                 val imageUrl = "$tmdbBaseUrl$imageSize${photo.file_path}"
                 Glide.with(itemView.context)
                     .load(imageUrl)

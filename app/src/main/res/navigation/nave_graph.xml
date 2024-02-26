@@ -68,7 +68,7 @@
         android:label="fragment_full_screen_fragement"
         tools:layout="@layout/fragment_full_screen_fragement" >
         <argument
-            android:name="position"
-            app:argType="integer" />
+            android:name="type"
+            app:argType="string" />
     </fragment>
 </navigation>

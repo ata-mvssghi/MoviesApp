@@ -1,5 +1,7 @@
 package com.example.moviesapp.model
 
+import com.example.moviesapp.Constants
+
 data class PhotoDataClass (
     val aspect_ratio: Double?,
     val file_path: String,
@@ -8,5 +10,5 @@ data class PhotoDataClass (
     val vote_average: Double?,
     val vote_count: Int?,
     val width: Int,
-    val isPoster:Boolean
+    val type: Constants.ImageType
         )
