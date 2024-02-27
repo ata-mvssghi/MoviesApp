@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/movies"
+        android:id="@+id/movieHomeFragment"
         android:title="Movies"
         android:icon="@drawable/baseline_local_movies_24" />
     <item
-        android:id="@+id/series"
+        android:id="@+id/serialHomeFragment"
         android:title="Series"
         android:icon="@drawable/baseline_tv_24"
         />

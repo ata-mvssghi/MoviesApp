@@ -80,5 +80,8 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.19.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.19.1'
     // expandable textView
+    implementation 'com.ms-square:expandableTextView:0.1.4'
+
+
 
 }

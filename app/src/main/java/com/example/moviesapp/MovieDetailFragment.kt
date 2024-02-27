@@ -68,6 +68,7 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
                 Log.i("imdb", "Received: $value")
             }
         }
+
         binding.morePhotosMovieDetail.setOnClickListener {
             photoViewModel.chosenMoviePhotoPosition = 0
             onPhotoCLickListener(0)
