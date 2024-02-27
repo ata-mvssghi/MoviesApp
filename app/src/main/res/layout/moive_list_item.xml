@@ -10,10 +10,11 @@
         android:id="@+id/cardView4"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:cardBackgroundColor="#333332"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -38,8 +39,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="62dp"
                 android:layout_toEndOf="@+id/poster"
-                android:text="Shawsank Redemptionasfsdgfdgsfgsggdsgsdgsdg"
                 android:maxWidth="250dp"
+                android:text="Shawsank Redemptionasfsdgfdgsfgsggdsgsdgsdg"
+                android:textColor="#BCB1B1"
                 android:textStyle="bold" />
 
             <TextView
@@ -51,6 +53,7 @@
                 android:layout_marginTop="13dp"
                 android:layout_toEndOf="@+id/poster"
                 android:text="TextView"
+                android:textColor="#BCB1B1"
                 android:textSize="14sp" />
 
             <TextView
@@ -61,7 +64,8 @@
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="13dp"
                 android:layout_toEndOf="@+id/prod_date"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="#BCB1B1" />
 
             <ImageView
                 android:id="@+id/star"
@@ -81,12 +85,14 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="19dp"
                 android:layout_toEndOf="@+id/star"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="#BCB1B1" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/darker_gray" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

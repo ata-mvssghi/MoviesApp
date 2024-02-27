@@ -51,8 +51,20 @@ class MovieHomeFragment : Fragment() , OnItemClickerListener{
                 Log.i("imdb", "Received: $value")
             }
         }
-        binding.button.setOnClickListener {
-            val action = MovieHomeFragmentDirections.actionMovieHomeFragmentToMoviesFragment(false)
+        binding.allPopularrSerial.setOnClickListener {
+            val action = MovieHomeFragmentDirections.actionMovieHomeFragmentToMoviesFragment(true,Constants.MovieType.popular)
+            findNavController().navigate(action)
+        }
+        binding.allNowPlayingSerial.setOnClickListener {
+            val action = MovieHomeFragmentDirections.actionMovieHomeFragmentToMoviesFragment(true,Constants.MovieType.nowPlaying)
+            findNavController().navigate(action)
+        }
+        binding.allTopRatedSerial.setOnClickListener {
+            val action = MovieHomeFragmentDirections.actionMovieHomeFragmentToMoviesFragment(true,Constants.MovieType.topRated)
+            findNavController().navigate(action)
+        }
+        binding.allUpComingSerial.setOnClickListener {
+            val action = MovieHomeFragmentDirections.actionMovieHomeFragmentToMoviesFragment(true , Constants.MovieType.upComing)
             findNavController().navigate(action)
         }
         setUpRecyclers()
@@ -84,20 +96,20 @@ class MovieHomeFragment : Fragment() , OnItemClickerListener{
     fun setUpRecyclers(){
         val layoutManager1 = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
-        binding.topRatedHomeRecycler.layoutManager = layoutManager1
-        binding.topRatedHomeRecycler.adapter = topRatedAdapter
+        binding.topRatedMovies.layoutManager = layoutManager1
+        binding.topRatedMovies.adapter = topRatedAdapter
         val layoutManager2 = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
-        binding.popularHomeRecycler.layoutManager = layoutManager2
-        binding.popularHomeRecycler.adapter = popularAdapter
+        binding.popularMovies.layoutManager = layoutManager2
+        binding.popularMovies.adapter = popularAdapter
         val layoutManager3 = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
-        binding.upcomingHomeRecycler.layoutManager = layoutManager3
-        binding.upcomingHomeRecycler.adapter = upComingAdapter
+        binding.upComingMovies.layoutManager = layoutManager3
+        binding.upComingMovies.adapter = upComingAdapter
         val layoutManager4 = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
-        binding.nowPlayingHomeRecycler.layoutManager = layoutManager4
-        binding.nowPlayingHomeRecycler.adapter = nowPlayingAdapter
+        binding.nowPlayingMovies.layoutManager = layoutManager4
+        binding.nowPlayingMovies.adapter = nowPlayingAdapter
     }
     fun initiateAdapter(){
         topRatedAdapter = HorizontalAdapter(this)

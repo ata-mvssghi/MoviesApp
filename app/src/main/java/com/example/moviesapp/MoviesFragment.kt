@@ -25,6 +25,7 @@ class MoviesFragment : Fragment() {
     lateinit var binding : FragmentMoviesBinding
     lateinit var viewModel  : TopRatedViewModel
     lateinit var moviesAdapter : TopRatedAdapter
+    lateinit var movieType : Constants.MovieType
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -50,6 +51,7 @@ class MoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i("imdb", "on view created called")
         isMovie = arguments?.getBoolean("isMovie") ?: true
+        movieType = arguments?.get("movieType") as Constants.MovieType
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.stateFlow.collect { value ->
                 handleEvent(value)
@@ -62,7 +64,7 @@ class MoviesFragment : Fragment() {
         var isScrolling = false
         val layoutManager = binding.topRatedMoivesList.layoutManager as LinearLayoutManager
         if(viewModel.topRatedMovies == null) {
-            viewModel.getTopRatedMovies(1,isMovie)
+            viewModel.getTopRatedMovies(1,isMovie,movieType)
             Log.i("imdb", "view model list was null")
         }
         else{
@@ -88,7 +90,7 @@ class MoviesFragment : Fragment() {
                     //if user scrolls till second last row then new data will be fetched
                     if (visibleItemCount + pastVisibleItemCount >= totalItemCount-2) {
                         // Load more data
-                        viewModel.getTopRatedMovies(++page,isMovie)
+                        viewModel.getTopRatedMovies(++page,isMovie,movieType)
                         Log.i("imdb","fetching movies with page  = $page")
                         //binding.loadMoreProgress.visibility = View.VISIBLE
                         isScrolling = false

@@ -3,6 +3,7 @@ package com.example.moviesapp.repository
 import android.content.Context
 import android.util.Log
 import com.example.moviesapp.ApiService
+import com.example.moviesapp.Constants
 import com.example.moviesapp.RetrofitInstance
 import com.example.moviesapp.api_responses.Movie_Api
 import com.example.moviesapp.api_responses.TopRatedResponse
@@ -18,15 +19,29 @@ class TopRatedMoviesRepo(
 ) {
     private val retrofit : Retrofit = RetrofitInstance.getRetrofitInstance()
     private val apiService  = retrofit.create(ApiService::class.java)
-    suspend fun getTopRatedMovies(page :Int,isMovie: Boolean) : List<Movie>?
+    suspend fun getTopRatedMovies(page :Int,isMovie: Boolean,movieType : Constants.MovieType) : List<Movie>?
     {
         try {
-            val apiResponse :Response<TopRatedResponse>
-            if(isMovie)
-                apiResponse = apiService.getTopRatedMovies(page)
-            else
-                apiResponse =apiService.getTopRatedSeries(page)
-            if (apiResponse.isSuccessful) {
+            var apiResponse :Response<TopRatedResponse>? = null
+            if(isMovie) {
+                if(movieType == Constants.MovieType.topRated)
+                     apiResponse = apiService.getTopRatedMovies(page)
+                else if(movieType == Constants.MovieType.popular)
+                     apiResponse = apiService.getPopular(page)
+                else if(movieType == Constants.MovieType.upComing)
+                     apiResponse = apiService.getUpComing(page)
+                else if(movieType == Constants.MovieType.nowPlaying)
+                     apiResponse = apiService.getNowPaying(page)
+            }
+            else {
+                if(movieType == Constants.MovieType.topRated)
+                     apiResponse = apiService.getTopRatedSeries(page)
+                else if(movieType == Constants.MovieType.popular)
+                    apiResponse = apiService.getPopularSerial(page)
+                else if(movieType == Constants.MovieType.nowPlaying)
+                    apiResponse = apiService.getOnTheAirSerials(page)
+            }
+            if (apiResponse!!.isSuccessful) {
                 Log.i("imdb", "result size = "+apiResponse.body()?.results?.size.toString())
                 if(isMovie)
                     return  apiResponse.body()?.results?.map { it.fromMovieToMovie() }

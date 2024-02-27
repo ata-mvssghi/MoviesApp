@@ -15,6 +15,9 @@
         <argument
             android:name="isMovie"
             app:argType="boolean" />
+        <argument
+            android:name="movieType"
+            app:argType="com.example.moviesapp.Constants$MovieType" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"

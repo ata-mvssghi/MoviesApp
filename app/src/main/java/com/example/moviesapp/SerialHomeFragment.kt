@@ -50,15 +50,15 @@ class SerialHomeFragment : Fragment() ,OnItemClickerListener{
             }
         }
         binding.allPopularSerial.setOnClickListener {
-            val action = SerialHomeFragmentDirections.actionSerialHomeFragmentToMoviesFragment(false)
+            val action = SerialHomeFragmentDirections.actionSerialHomeFragmentToMoviesFragment(false,Constants.MovieType.popular)
             findNavController().navigate(action)
         }
         binding.allTopSerial.setOnClickListener {
-            val action = SerialHomeFragmentDirections.actionSerialHomeFragmentToMoviesFragment(false)
+            val action = SerialHomeFragmentDirections.actionSerialHomeFragmentToMoviesFragment(false,Constants.MovieType.topRated)
             findNavController().navigate(action)
         }
         binding.allOnAir.setOnClickListener {
-            val action = SerialHomeFragmentDirections.actionSerialHomeFragmentToMoviesFragment(false)
+            val action = SerialHomeFragmentDirections.actionSerialHomeFragmentToMoviesFragment(false,Constants.MovieType.nowPlaying)
             findNavController().navigate(action)
         }
 
