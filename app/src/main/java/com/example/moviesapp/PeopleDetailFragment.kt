@@ -28,10 +28,6 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
     lateinit var photosAdapter : PhotosAdapter
     private val photoViewModel : PhotosShardViewModel by activityViewModels()
      var personId : Int = 0
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +36,8 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
         binding = FragmentPeopleDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(PersonDetailViewModel::class.java)
         personId = arguments?.getInt("person_id")!!
-        viewModel.getPersonDetail(personId)
-        viewModel.getPersonProfile(personId)
-        creditAdadpter = HorizontalAdapter(this)
-        viewModel.getCreditList(personId)
+        //TODO here we shall have a problem  is the credit of the actor is a serial
+        creditAdadpter = HorizontalAdapter(this,true)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -63,30 +57,20 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
         binding.profileRecycler.adapter = photosAdapter
         val layoutManager2 = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
         binding.profileRecycler.layoutManager = layoutManager2
+        getTheData()
     }
 
     fun handleEvent(event:String){
         when(event){
             "person detail info fetched" ->{
-                setUpInfo(viewModel.personDetail)
+                setUpInfo(viewModel.personDetail!!)
             }
             "credit fetched"->{
-                val originalList = viewModel.creditList
-                val sortedList = originalList.sortedBy { it.popularity }
-                creditAdadpter.differ.submitList(sortedList.reversed())
-                creditAdadpter.notifyDataSetChanged()
-                binding.perosonCreditProg.visibility = View.GONE
+                creditFetchedToDo()
             }
             "profiles fetched"->{
-                Log.i("imdb","profile list size is ${viewModel.profilePics.size}")
-                val photos  = viewModel.profilePics
-                photosAdapter.differ.submitList(photos)
-                photosAdapter.notifyDataSetChanged()
-                photoViewModel.profilePictures = photos
-                binding.profileProgress.visibility = View.GONE
+                profileFethedToDo()
             }
-
-
         }
     }
     fun setUpInfo(personDetail :PeopleResponse){
@@ -121,5 +105,34 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
     override fun onItemClick(movie: Movie, isMovie: Boolean) {
         val action = PeopleDetailFragmentDirections.actionPeopleDetailFragmentToMovieDetailFragment(movie,isMovie)
         findNavController().navigate(action)
+    }
+    fun getTheData(){
+        if(viewModel.personDetail == null)
+            viewModel.getPersonDetail(personId)
+        else
+            setUpInfo(viewModel.personDetail!!)
+        if(viewModel.profilePics == null)
+            viewModel.getPersonProfile(personId)
+        else
+            profileFethedToDo()
+        if(viewModel.creditList == null)
+            viewModel.getCreditList(personId)
+        else
+            creditFetchedToDo()
+    }
+    fun profileFethedToDo(){
+        Log.i("imdb","profile list size is ${viewModel.profilePics?.size}")
+        val photos  = viewModel.profilePics
+        photosAdapter.differ.submitList(photos)
+        photosAdapter.notifyDataSetChanged()
+        photoViewModel.profilePictures = photos!!
+        binding.profileProgress.visibility = View.GONE
+    }
+    fun creditFetchedToDo(){
+        val originalList = viewModel.creditList
+        val sortedList = originalList?.sortedBy { it.popularity }
+        creditAdadpter.differ.submitList(sortedList?.reversed())
+        creditAdadpter.notifyDataSetChanged()
+        binding.perosonCreditProg.visibility = View.GONE
     }
 }

@@ -18,9 +18,9 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 
 class PersonDetailViewModel : ViewModel() {
-    lateinit var creditList : MutableList<Movie>
-    lateinit var personDetail : PeopleResponse
-    lateinit var profilePics : List<PhotoDataClass>
+     var creditList : MutableList<Movie>? = null
+     var personDetail : PeopleResponse? = null
+     var profilePics : List<PhotoDataClass>? = null
     private val retrofit : Retrofit = RetrofitInstance.getRetrofitInstance()
     private val apiService  = retrofit.create(ApiService::class.java)
     private val _stateFlow = MutableSharedFlow<String>()

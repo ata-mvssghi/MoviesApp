@@ -26,9 +26,7 @@ class MoviesFragment : Fragment() {
     lateinit var viewModel  : TopRatedViewModel
     lateinit var moviesAdapter : TopRatedAdapter
     lateinit var movieType : Constants.MovieType
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
 
     override fun onCreateView(
@@ -51,6 +49,7 @@ class MoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i("imdb", "on view created called")
         isMovie = arguments?.getBoolean("isMovie") ?: true
+        Log.i("imdb","is movie in movie fragment is =$isMovie")
         movieType = arguments?.get("movieType") as Constants.MovieType
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.stateFlow.collect { value ->

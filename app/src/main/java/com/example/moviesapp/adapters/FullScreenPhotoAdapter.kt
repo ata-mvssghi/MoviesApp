@@ -26,8 +26,11 @@ import com.example.moviesapp.databinding.PhotoItemBinding
 import com.example.moviesapp.databinding.PhotoRealSizeItemBinding
 import com.example.moviesapp.model.Movie
 import com.example.moviesapp.model.PhotoDataClass
-
+interface OnPhotoItemClickListener {
+    fun onItemClick(position: Int)
+}
 class FullScreenPhotoAdapter(
+   val listener: OnPhotoItemClickListener
 ): RecyclerView.Adapter<FullScreenPhotoAdapter.HorizontalPhotosFullScreenViewHolder>(){
     inner class HorizontalPhotosFullScreenViewHolder(val binding : PhotoRealSizeItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: PhotoDataClass) {
@@ -65,6 +68,9 @@ class FullScreenPhotoAdapter(
 
     override fun onBindViewHolder(holder: HorizontalPhotosFullScreenViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it) }
+        holder.binding.donwLoad.setOnClickListener {
+            listener.onItemClick(position)
+        }
     }
 
 }

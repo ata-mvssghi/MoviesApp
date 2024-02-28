@@ -9,6 +9,7 @@ import com.example.moviesapp.RetrofitInstance
 import com.example.moviesapp.api_responses.Movie_Api
 import com.example.moviesapp.api_responses.TopRatedResponse
 import com.example.moviesapp.api_responses.fromMovieToMovie
+import com.example.moviesapp.api_responses.fromSeriesToMovie
 import com.example.moviesapp.model.Movie
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -16,10 +17,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 
 class MovieHomeViewModel : ViewModel() {
-    lateinit var topRatedMovies  : List<Movie>
-    lateinit var upComing  : List<Movie>
-    lateinit var nowPlaying  : List<Movie>
-    lateinit var popularMovies  : List<Movie>
+     var topRatedMovies  : List<Movie>? = null
+     var upComing  : List<Movie>? = null
+     var nowPlaying  : List<Movie>? = null
+     var popularMovies  : List<Movie>? = null
     private val _stateFlow = MutableSharedFlow<String>()
     val stateFlow: MutableSharedFlow<String> get() = _stateFlow
     private val retrofit : Retrofit = RetrofitInstance.getRetrofitInstance()
@@ -38,8 +39,13 @@ class MovieHomeViewModel : ViewModel() {
                 val newData =  result.body()?.results
                 val suitableList :MutableList<Movie> = mutableListOf()
                 if (newData != null) {
-                    for(movie in newData)
-                        suitableList.add(movie.fromMovieToMovie())
+                    for(movie in newData) {
+                        if(isMovie)
+                             suitableList.add(movie.fromMovieToMovie())
+                        else
+                             suitableList.add(movie.fromSeriesToMovie())
+
+                    }
                     topRatedMovies = suitableList
                 }
                 if(isMovie)
@@ -67,7 +73,11 @@ class MovieHomeViewModel : ViewModel() {
                 val suitableList :MutableList<Movie> = mutableListOf()
                 if (newData != null) {
                     for(movie in newData)
-                        suitableList.add(movie.fromMovieToMovie())
+                        if(isMovie)
+                             suitableList.add(movie.fromMovieToMovie())
+                        else{
+                            suitableList.add(movie.fromSeriesToMovie())
+                        }
                     upComing = suitableList
                 }
                 if(isMovie)
@@ -94,8 +104,12 @@ class MovieHomeViewModel : ViewModel() {
                 val newData =  result.body()?.results
                 val suitableList :MutableList<Movie> = mutableListOf()
                 if (newData != null) {
-                    for(movie in newData)
-                        suitableList.add(movie.fromMovieToMovie())
+                    for(movie in newData) {
+                        if(isMovie)
+                             suitableList.add(movie.fromMovieToMovie())
+                        else
+                            suitableList.add(movie.fromSeriesToMovie())
+                    }
                     popularMovies = suitableList
                 }
                 if(isMovie)

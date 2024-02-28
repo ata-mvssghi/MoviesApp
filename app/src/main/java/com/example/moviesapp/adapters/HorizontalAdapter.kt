@@ -22,6 +22,7 @@ import com.example.moviesapp.model.Movie
 
 class HorizontalAdapter(
     private val itemCLickListener : OnItemClickerListener
+    ,val isMovie: Boolean
 ): RecyclerView.Adapter<HorizontalAdapter.HorizontalMovieViewHolder>(){
     inner class HorizontalMovieViewHolder(val binding : MovieListItemSecondBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
@@ -68,7 +69,7 @@ class HorizontalAdapter(
     override fun onBindViewHolder(holder: HorizontalMovieViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it) }
         holder.itemView.setOnClickListener {
-           itemCLickListener.onItemClick(differ.currentList[position],true)
+           itemCLickListener.onItemClick(differ.currentList[position],isMovie)
         }
     }
 

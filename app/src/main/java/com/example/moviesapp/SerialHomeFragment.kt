@@ -34,10 +34,8 @@ class SerialHomeFragment : Fragment() ,OnItemClickerListener{
         binding = FragmentSerialHomeBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(MovieHomeViewModel::class.java)
         initiateAdapter()
-        viewModel.getTopRatedMovies(1,false)
-        viewModel.getPopular(1,false)
-        viewModel.getUpcoming(1,false)
-        viewModel.getNowPlaying(1,false)
+        getTheData()
+
         return binding.root
     }
 
@@ -96,9 +94,9 @@ class SerialHomeFragment : Fragment() ,OnItemClickerListener{
         binding.onTheAirSerialRec.adapter = upComingAdapter
     }
     fun initiateAdapter(){
-        topRatedAdapter = HorizontalAdapter(this)
-        upComingAdapter = HorizontalAdapter(this)
-        popularAdapter = HorizontalAdapter(this)
+        topRatedAdapter = HorizontalAdapter(this,false)
+        upComingAdapter = HorizontalAdapter(this,false)
+        popularAdapter = HorizontalAdapter(this,false)
     }
     override fun onPhotoCLickListener(position: Int) {
         //We have nothing to do with this function here
@@ -107,6 +105,27 @@ class SerialHomeFragment : Fragment() ,OnItemClickerListener{
     override fun onItemClick(movie: Movie, isMovie: Boolean) {
         val action = SerialHomeFragmentDirections.actionSerialHomeFragmentToMovieDetailFragment(movie,isMovie)
         findNavController().navigate(action)
+    }
+    fun getTheData(){
+        if(viewModel.topRatedMovies == null)
+            viewModel.getTopRatedMovies(1,false)
+
+        else{
+            topRatedAdapter.differ.submitList(viewModel.topRatedMovies)
+            topRatedAdapter.notifyDataSetChanged()
+        }
+        if(viewModel.popularMovies == null)
+            viewModel.getPopular(1,false)
+        else {
+            popularAdapter.differ.submitList(viewModel.popularMovies)
+            popularAdapter.notifyDataSetChanged()
+        }
+        if(viewModel.upComing == null)
+            viewModel.getUpcoming(1,false)
+        else {
+            upComingAdapter.differ.submitList(viewModel.popularMovies)
+            upComingAdapter.notifyDataSetChanged()
+        }
     }
 
 }

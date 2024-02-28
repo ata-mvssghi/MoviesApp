@@ -31,7 +31,7 @@ fun Movie_Api.fromMovieToMovie(): Movie {
 }
 fun Movie_Api.fromSeriesToMovie(): Movie {
     return Movie(
-        id = id, poster_path = poster_path, title = name, vote_average = vote_average,
+        id = id, poster_path = poster_path, title = original_name, vote_average = vote_average,
         vote_count = vote_count, original_language = original_language,
         release_date = first_air_date, overview = overview,
         original_picture =  backdrop_path, popularity = popularity

@@ -82,6 +82,11 @@ dependencies {
     // expandable textView
     implementation 'com.ms-square:expandableTextView:0.1.4'
 
+    //easy permission
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+    implementation 'pub.devrel:easypermissions:2.0.1'
+    implementation 'pub.devrel:easypermissions:3.0.0'
+
 
 
 }

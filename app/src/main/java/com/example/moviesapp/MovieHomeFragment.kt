@@ -26,8 +26,6 @@ class MovieHomeFragment : Fragment() , OnItemClickerListener{
     lateinit var popularAdapter : HorizontalAdapter
     lateinit var nowPlayingAdapter : HorizontalAdapter
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,10 +34,7 @@ class MovieHomeFragment : Fragment() , OnItemClickerListener{
         binding = FragmentMovieHomeBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(MovieHomeViewModel::class.java)
         initiateAdapter()
-        viewModel.getTopRatedMovies(1,true)
-        viewModel.getPopular(1,true)
-        viewModel.getUpcoming(1,true)
-        viewModel.getNowPlaying(1,true)
+        getTheData()
         return binding.root
     }
 
@@ -112,10 +107,10 @@ class MovieHomeFragment : Fragment() , OnItemClickerListener{
         binding.nowPlayingMovies.adapter = nowPlayingAdapter
     }
     fun initiateAdapter(){
-        topRatedAdapter = HorizontalAdapter(this)
-        upComingAdapter = HorizontalAdapter(this)
-        nowPlayingAdapter = HorizontalAdapter(this)
-        popularAdapter = HorizontalAdapter(this)
+        topRatedAdapter = HorizontalAdapter(this,true)
+        upComingAdapter = HorizontalAdapter(this,true)
+        nowPlayingAdapter = HorizontalAdapter(this,true)
+        popularAdapter = HorizontalAdapter(this,true)
     }
 
     override fun onPhotoCLickListener(position: Int) {
@@ -125,5 +120,32 @@ class MovieHomeFragment : Fragment() , OnItemClickerListener{
     override fun onItemClick(movie: Movie, isMovie: Boolean) {
         val action = MovieHomeFragmentDirections.actionMovieHomeFragmentToMovieDetailFragment2(movie,isMovie)
         findNavController().navigate(action)
+    }
+    fun getTheData(){
+        if(viewModel.topRatedMovies == null)
+            viewModel.getTopRatedMovies(1,true)
+
+        else{
+            topRatedAdapter.differ.submitList(viewModel.topRatedMovies)
+            topRatedAdapter.notifyDataSetChanged()
+        }
+        if(viewModel.popularMovies == null)
+            viewModel.getPopular(1,true)
+        else {
+            popularAdapter.differ.submitList(viewModel.popularMovies)
+            popularAdapter.notifyDataSetChanged()
+        }
+        if(viewModel.upComing == null)
+            viewModel.getUpcoming(1,true)
+        else {
+            upComingAdapter.differ.submitList(viewModel.popularMovies)
+            upComingAdapter.notifyDataSetChanged()
+        }
+        if(viewModel.nowPlaying == null)
+            viewModel.getNowPlaying(1,true)
+        else{
+            nowPlayingAdapter.differ.submitList(viewModel.nowPlaying)
+            nowPlayingAdapter.notifyDataSetChanged()
+        }
     }
 }

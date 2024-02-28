@@ -39,9 +39,7 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
     lateinit var photosAdapter : PhotosAdapter
     lateinit var similarMoviesAdapter : HorizontalAdapter
     lateinit var passedArgument : Movie
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,29 +50,28 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
             this
         ).get(CreditViewModel::class.java)
         webView = binding.webView
+        isMovie = arguments?.getBoolean("isMovie") ?: true
+        Log.i("imdb","is movie in movie detail is = $isMovie")
         val serializable =arguments?.getSerializable("movie")
         passedArgument = serializable as Movie
-        viewModel.getVideoKey(passedArgument.id,isMovie)
         setUpPrimaryViews(isMovie)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isMovie = arguments?.getBoolean("isMovie") ?: true
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.stateFlow.collect { value ->
                 handleEvent(value)
                 Log.i("imdb", "Received: $value")
             }
         }
-
         binding.morePhotosMovieDetail.setOnClickListener {
             photoViewModel.chosenMoviePhotoPosition = 0
             onPhotoCLickListener(0)
         }
         actorsAdapter = ActorsAdapter(findNavController())
-        similarMoviesAdapter = HorizontalAdapter(this)
+        similarMoviesAdapter = HorizontalAdapter(this,isMovie)
         photosAdapter = PhotosAdapter(this)
         val layoutManager1 = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
         binding.simirlarRecycler.layoutManager = layoutManager1
@@ -85,30 +82,16 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
         val layoutManager3 = GridLayoutManager(requireContext(),2)
         binding.castRecycler.layoutManager = layoutManager3
         binding.castRecycler.adapter = actorsAdapter
-        viewModel.getActorsList(passedArgument.id,isMovie)
-        viewModel.getSimilarMoviesList(passedArgument.id,isMovie)
-        viewModel.getImages(passedArgument.id,isMovie)
+        getTheData()
 
     }
     fun handleEvent(event:String){
         when(event){
             "actors list fetched" ->{
-                val filteredList :MutableList<Cast> = mutableListOf()
-                val fullList = viewModel.actors?.take(18)
-                if (fullList != null) {
-                    for(cast in fullList){
-                        if(cast.known_for_department.equals("Acting"))
-                            filteredList.add(cast)
-                    }
-                }
-                actorsAdapter.differ.submitList(filteredList)
-                binding.actorsProg.visibility = View.GONE
-                Log.i("imdb",viewModel.actors?.size.toString())
-                actorsAdapter.notifyDataSetChanged()
+               actorsFetchedToDo()
             }
             "video fetched"->{
-                val key = viewModel.videoKey
-                setUpWebView(key)
+                setUpWebView()
             }
             "similar movies fetched"->{
                 similarMoviesAdapter.differ.submitList(viewModel.similarMovies)
@@ -116,22 +99,13 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
                 binding.SimilarProgress.visibility = View.GONE
             }
             "images fetched"->{
-                val prevList  = viewModel.images!!
-                val photos : MutableList<PhotoDataClass> = mutableListOf()
-                val posters = prevList.posters.sortedBy { it.vote_average }.take(10).reversed()
-                photos.addAll( posters.map { it.toPhoto() })
-                val allPhotos : MutableList<PhotoDataClass> = mutableListOf()
-                allPhotos.addAll(photos)
-                allPhotos.addAll(prevList.backdrops.map { it.toPhoto() }.sortedBy { it.vote_average }.reversed())
-                photosAdapter.differ.submitList(photos)
-                photosAdapter.notifyDataSetChanged()
-                photoViewModel.photoList = allPhotos
-                binding.photesProgress.visibility = View.GONE
+                setUpImages()
             }
 
         }
     }
-    fun setUpWebView(movieKey :String?){
+    fun setUpWebView(){
+        val movieKey = viewModel.videoKey
         val webSettings: WebSettings = webView.settings
         webSettings.javaScriptEnabled = true
         // Load YouTube video URL
@@ -174,6 +148,57 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
     override fun onItemClick(movie: Movie , notImportantBool: Boolean) {
         val action =  MovieDetailFragmentDirections.actionMovieDetailFragmentSelf(movie,isMovie)
         findNavController().navigate(action)
+    }
+    fun getTheData(){
+        if(viewModel.similarMovies == null)
+            viewModel.getSimilarMoviesList(passedArgument.id,isMovie)
+        else{
+            similarMoviesAdapter.differ.submitList(viewModel.similarMovies)
+            similarMoviesAdapter.notifyDataSetChanged()
+            binding.SimilarProgress.visibility = View.GONE
+        }
+        if(viewModel.images == null)
+            viewModel.getImages(passedArgument.id,isMovie)
+        else{
+            setUpImages()
+        }
+        if(viewModel.videoKey == null)
+            viewModel.getVideoKey(passedArgument.id,isMovie)
+        else
+            setUpWebView()
+        if(viewModel.actors == null)
+            viewModel.getActorsList(passedArgument.id,isMovie)
+        else
+            actorsFetchedToDo()
+
+
+    }
+    fun setUpImages(){
+        val prevList  = viewModel.images!!
+        val photos : MutableList<PhotoDataClass> = mutableListOf()
+        val posters = prevList.posters.sortedBy { it.vote_average }.take(10).reversed()
+        photos.addAll( posters.map { it.toPhoto() })
+        val allPhotos : MutableList<PhotoDataClass> = mutableListOf()
+        allPhotos.addAll(photos)
+        allPhotos.addAll(prevList.backdrops.map { it.toPhoto() }.sortedBy { it.vote_average }.reversed())
+        photosAdapter.differ.submitList(photos)
+        photosAdapter.notifyDataSetChanged()
+        photoViewModel.photoList = allPhotos
+        binding.photesProgress.visibility = View.GONE
+    }
+    fun actorsFetchedToDo(){
+        val filteredList :MutableList<Cast> = mutableListOf()
+        val fullList = viewModel.actors?.take(18)
+        if (fullList != null) {
+            for(cast in fullList){
+                if(cast.known_for_department.equals("Acting"))
+                    filteredList.add(cast)
+            }
+        }
+        actorsAdapter.differ.submitList(filteredList)
+        binding.actorsProg.visibility = View.GONE
+        Log.i("imdb",viewModel.actors?.size.toString())
+        actorsAdapter.notifyDataSetChanged()
     }
 }
 

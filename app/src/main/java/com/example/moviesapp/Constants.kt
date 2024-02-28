@@ -1,5 +1,7 @@
 package com.example.moviesapp
-
+interface BottomNavigatorCallback {
+    fun showBottomNavigator(show: Boolean)
+}
 object  Constants {
     enum class ImageType{
         poster,

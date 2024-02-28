@@ -25,8 +25,8 @@ class TopRatedAdapter(
             binding.language.text = movie.original_language
             val fullDate = movie.vote_average.toString()
             val trimmedDate = fullDate.substring(0,3)
-            val releaseDate = trimmedDate + "(${formatNumber(movie.vote_count)})"
-            binding.score.text = releaseDate
+            val score = trimmedDate + "(${formatNumber(movie.vote_count)})"
+            binding.score.text = score
             val seprated  = movie.release_date?.split("-")
             binding.prodDate.text = seprated?.get(0) ?: "no data"
             val tmdbBaseUrl = "https://image.tmdb.org/t/p/"
