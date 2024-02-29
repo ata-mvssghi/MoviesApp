@@ -1,6 +1,7 @@
 package com.example.moviesapp
 
 import android.content.ContentValues
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -36,10 +37,6 @@ class FullScreenFragement() : Fragment() , OnPhotoItemClickListener {
     var postionToBeDownloaded : Int = 0
     lateinit var type :String
     var currentITem : Int = 0
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

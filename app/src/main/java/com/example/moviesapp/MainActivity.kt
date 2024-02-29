@@ -8,7 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.moviesapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() ,BottomNavigatorCallback {
+class MainActivity : AppCompatActivity()  {
     lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,14 +19,5 @@ class MainActivity : AppCompatActivity() ,BottomNavigatorCallback {
         navigationView.setupWithNavController(navHostFragment.navController)
     }
 
-    override fun showBottomNavigator(show: Boolean) {
-        // Implement the logic to show or hide the bottom navigator
-        // This might involve toggling visibility or managing visibility state
-        if (show) {
-            binding.bottomNavigator.visibility = View.VISIBLE
-        } else {
-            binding.bottomNavigator.visibility = View.GONE
-        }
-    }
 
 }
