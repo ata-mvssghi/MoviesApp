@@ -54,24 +54,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/name_person_detail" />
 
             <TextView
-                android:id="@+id/biography"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:textColor="#EAE4E4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/career" />
-
-            <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="20dp"
                 android:textColor="#787575"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/biography" />
+                app:layout_constraintTop_toBottomOf="@+id/expand_tv" />
 
             <TextView
                 android:id="@+id/dead_Or_not"
@@ -90,10 +80,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="20dp"
                 android:textColor="#CFC8C8"
                 app:layout_constraintStart_toEndOf="@+id/textView1"
-                app:layout_constraintTop_toBottomOf="@+id/biography" />
+                app:layout_constraintTop_toBottomOf="@+id/expand_tv" />
 
             <TextView
                 android:id="@+id/death_date"
@@ -203,6 +193,21 @@
                         android:layout_marginTop="119dp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
+            <io.github.glailton.expandabletextview.ExpandableTextView
+                android:id="@+id/expand_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="12dp"
+                app:expandType="layout"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/career" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

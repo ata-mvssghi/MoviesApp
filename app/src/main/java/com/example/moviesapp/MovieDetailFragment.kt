@@ -2,6 +2,7 @@ package com.example.moviesapp
 
 import android.os.Bundle
 import android.util.Log
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,14 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import at.huber.youtubeExtractor.VideoMeta
+import at.huber.youtubeExtractor.YouTubeExtractor
+import at.huber.youtubeExtractor.YtFile
 import com.bumptech.glide.Glide
 import com.example.moviesapp.adapters.ActorsAdapter
 import com.example.moviesapp.adapters.HorizontalAdapter
@@ -28,6 +31,7 @@ import com.example.moviesapp.model.PhotoDataClass
 import com.example.moviesapp.viewModels.CreditViewModel
 import com.example.moviesapp.viewModels.PhotosShardViewModel
 import kotlinx.coroutines.launch
+
 
 class MovieDetailFragment : Fragment()  , OnItemClickerListener{
     var isMovie : Boolean = true
@@ -83,6 +87,7 @@ class MovieDetailFragment : Fragment()  , OnItemClickerListener{
         binding.castRecycler.layoutManager = layoutManager3
         binding.castRecycler.adapter = actorsAdapter
         getTheData()
+
 
     }
     fun handleEvent(event:String){

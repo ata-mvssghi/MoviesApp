@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +20,9 @@ import com.example.moviesapp.databinding.FragmentPeopleDetailBinding
 import com.example.moviesapp.model.Movie
 import com.example.moviesapp.viewModels.PersonDetailViewModel
 import com.example.moviesapp.viewModels.PhotosShardViewModel
+import com.ms.square.android.expandabletextview.ExpandableTextView
+import io.github.glailton.expandabletextview.EXPAND_TYPE_LAYOUT
+import io.github.glailton.expandabletextview.EXPAND_TYPE_POPUP
 import kotlinx.coroutines.launch
 
 class PeopleDetailFragment : Fragment() , OnItemClickerListener {
@@ -58,6 +62,7 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
         val layoutManager2 = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
         binding.profileRecycler.layoutManager = layoutManager2
         getTheData()
+
     }
 
     fun handleEvent(event:String){
@@ -84,7 +89,7 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
             .load(imageUrl)
             .placeholder(R.drawable.placeholder)
             .into(binding.imageView2)
-        binding.biography.text = personDetail.biography
+        binding.expandTv.text = personDetail.biography
         binding.Born.text = personDetail.birthday
         if(personDetail.deathday != null) {
             binding.deathDate.text = personDetail.deathday.toString()
@@ -92,6 +97,16 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
             binding.deathDate.visibility = View.VISIBLE
             binding.deadOrNot.text = "BORN"
             binding.deadOrNot.visibility = View.VISIBLE
+            binding.expandTv
+                .setAnimationDuration(500)
+                .setReadMoreText("View More")
+                .setReadLessText("View Less")
+                .setCollapsedLines(3)
+                .setIsExpanded(false)
+                .setIsUnderlined(true)
+                .setExpandType(EXPAND_TYPE_POPUP).setEllipsizedTextColor(ContextCompat.getColor(requireContext(),
+                    R.color.white))
+            binding.expandTv.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
         }
     }
 

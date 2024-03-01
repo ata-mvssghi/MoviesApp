@@ -9,4 +9,9 @@
         android:title="Series"
         android:icon="@drawable/baseline_tv_24"
         />
+    <item
+        android:id="@+id/searchFragment"
+        android:title="Search"
+        android:icon="@drawable/baseline_search_24"
+        />
 </menu>

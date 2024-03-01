@@ -85,4 +85,15 @@
             android:id="@+id/action_serialHomeFragment_to_moviesFragment"
             app:destination="@id/moviesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.moviesapp.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_peopleDetailFragment"
+            app:destination="@id/peopleDetailFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
 </navigation>
