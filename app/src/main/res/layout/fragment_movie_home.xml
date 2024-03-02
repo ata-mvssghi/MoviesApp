@@ -21,10 +21,11 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView6"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="275dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="1dp"
+                android:maxHeight="100dp"
                 app:cardBackgroundColor="#4A4949"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +61,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/topRated_movies"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/textView2"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="true"
@@ -122,7 +123,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/upComing_movies"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/textView4"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="true"
@@ -195,7 +196,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/popular_movies"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/textView5"
                         android:layout_marginTop="15dp" />
 
@@ -217,7 +218,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
                 app:cardBackgroundColor="#4A4949"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView7">
@@ -252,7 +255,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/nowPlaying_movies"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/textView8"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="true"

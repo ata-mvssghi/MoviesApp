@@ -53,98 +53,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name_person_detail" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:textColor="#787575"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/expand_tv" />
-
-            <TextView
-                android:id="@+id/dead_Or_not"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:text="died"
-                android:textColor="#787575"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView1" />
-
-            <TextView
-                android:id="@+id/Born"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
-                android:textColor="#CFC8C8"
-                app:layout_constraintStart_toEndOf="@+id/textView1"
-                app:layout_constraintTop_toBottomOf="@+id/expand_tv" />
-
-            <TextView
-                android:id="@+id/death_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
-                android:text="TextView"
-                android:textColor="#CFC8C8"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/dead_Or_not"
-                app:layout_constraintTop_toBottomOf="@+id/Born" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/credits_recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="40dp"
-                android:text="CREDITS"
-                android:textColor="#CDE40D"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/cardView8" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="40dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView8"
-                app:srcCompat="@drawable/three_dots" />
-
-            <ProgressBar
-                android:id="@+id/peroson_credit_prog"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="188dp"
-                android:layout_marginTop="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/credits_recyclerView" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView8"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#292828"
+                android:layout_height="255dp"
+                android:layout_marginTop="35dp"
+                app:cardBackgroundColor="#4A4949"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Born">
+                app:layout_constraintTop_toBottomOf="@+id/born_text">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -201,12 +118,119 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="12dp"
+                app:collapsedLines="4"
+                android:textColor="#918E8E"
                 app:expandType="layout"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/career" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="275dp"
+                android:layout_marginTop="40dp"
+                app:cardBackgroundColor="#4A4949"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView8">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_toEndOf="@+id/imageView"
+                        android:text="CREDITS"
+                        android:textColor="#CDE40D" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="20dp"
+                        app:srcCompat="@drawable/three_dots" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/creditRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView9"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginEnd="0dp" />
+
+                    <ProgressBar
+                        android:id="@+id/credit_progress"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="181dp"
+                        android:layout_marginTop="133dp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/born_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="Born"
+                android:textColor="#3D7A4A"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expand_tv" />
+
+            <TextView
+                android:id="@+id/birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:text="TextView"
+                android:textColor="#ECE7E7"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/born_text"
+                app:layout_constraintTop_toBottomOf="@+id/expand_tv" />
+
+            <TextView
+                android:id="@+id/died_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="Died"
+                android:textColor="#3D7A4A"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/born_text" />
+
+            <TextView
+                android:id="@+id/death_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:textColor="#EAE4E4"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/died_text"
+                app:layout_constraintTop_toBottomOf="@+id/birthday" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

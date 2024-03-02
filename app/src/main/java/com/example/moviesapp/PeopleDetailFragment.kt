@@ -21,6 +21,7 @@ import com.example.moviesapp.model.Movie
 import com.example.moviesapp.viewModels.PersonDetailViewModel
 import com.example.moviesapp.viewModels.PhotosShardViewModel
 import com.ms.square.android.expandabletextview.ExpandableTextView
+import gen._base._base_java__assetres.srcjar.R.id.text
 import io.github.glailton.expandabletextview.EXPAND_TYPE_LAYOUT
 import io.github.glailton.expandabletextview.EXPAND_TYPE_POPUP
 import kotlinx.coroutines.launch
@@ -55,8 +56,8 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
             }
         }
         val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-        binding.creditsRecyclerView.layoutManager = layoutManager
-        binding.creditsRecyclerView.adapter = creditAdadpter
+        binding.creditRecycler.layoutManager = layoutManager
+        binding.creditRecycler.adapter = creditAdadpter
         photosAdapter = PhotosAdapter(this)
         binding.profileRecycler.adapter = photosAdapter
         val layoutManager2 = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
@@ -90,24 +91,30 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
             .placeholder(R.drawable.placeholder)
             .into(binding.imageView2)
         binding.expandTv.text = personDetail.biography
-        binding.Born.text = personDetail.birthday
-        if(personDetail.deathday != null) {
-            binding.deathDate.text = personDetail.deathday.toString()
-            binding.deadOrNot.visibility = View.VISIBLE
+            binding.birthday.text = personDetail.birthday
+            binding.birthday.visibility = View.VISIBLE
+            binding.bornText.visibility = View.VISIBLE
+        if(personDetail.deathday== null){
+            binding.diedText.visibility = View.GONE
+            binding.deathDate.visibility = View.GONE
+        }
+        else{
+            binding.diedText.visibility = View.VISIBLE
             binding.deathDate.visibility = View.VISIBLE
-            binding.deadOrNot.text = "BORN"
-            binding.deadOrNot.visibility = View.VISIBLE
+            binding.deathDate.text = personDetail.deathday.toString()
+        }
+
             binding.expandTv
                 .setAnimationDuration(500)
                 .setReadMoreText("View More")
                 .setReadLessText("View Less")
-                .setCollapsedLines(3)
+                .setCollapsedLines(4)
                 .setIsExpanded(false)
                 .setIsUnderlined(true)
                 .setExpandType(EXPAND_TYPE_POPUP).setEllipsizedTextColor(ContextCompat.getColor(requireContext(),
-                    R.color.white))
+                    androidx.appcompat.R.color.material_blue_grey_800))
             binding.expandTv.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
-        }
+
     }
 
     override fun onPhotoCLickListener(position: Int) {
@@ -148,6 +155,6 @@ class PeopleDetailFragment : Fragment() , OnItemClickerListener {
         val sortedList = originalList?.sortedBy { it.popularity }
         creditAdadpter.differ.submitList(sortedList?.reversed())
         creditAdadpter.notifyDataSetChanged()
-        binding.perosonCreditProg.visibility = View.GONE
+        binding.creditProgress.visibility = View.GONE
     }
 }

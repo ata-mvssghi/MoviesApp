@@ -68,7 +68,7 @@ class FullScreenPhotoAdapter(
 
     override fun onBindViewHolder(holder: HorizontalPhotosFullScreenViewHolder, position: Int) {
         differ.currentList[position]?.let { holder.bind(it) }
-        holder.binding.donwLoad.setOnClickListener {
+        holder.binding.download.setOnClickListener {
             listener.onItemClick(position)
         }
     }

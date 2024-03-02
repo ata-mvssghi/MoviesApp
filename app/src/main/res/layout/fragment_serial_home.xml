@@ -82,7 +82,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView10"
                 android:layout_width="0dp"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 app:cardBackgroundColor="#4A4949"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +119,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/popular_serial_rec"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/textView13"
                         android:layout_marginTop="16dp" />
 
@@ -138,9 +138,11 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
                 app:cardBackgroundColor="#4A4949"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView10">
@@ -186,7 +188,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/onTheAir_Serial_rec"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/textView14"
                         android:layout_marginTop="20dp" />
                 </RelativeLayout>
