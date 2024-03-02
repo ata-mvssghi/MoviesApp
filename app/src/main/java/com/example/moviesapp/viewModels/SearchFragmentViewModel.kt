@@ -12,17 +12,25 @@ import retrofit2.Retrofit
 import java.lang.Exception
 
 class SearchFragmentViewModel : ViewModel(){
-    lateinit var result  : List<SearchResponse>
+     var listToBeAdded : List<SearchResponse>? = null
+     var result  : MutableList<SearchResponse> = mutableListOf()
     private val _stateFlow = MutableSharedFlow<String>()
     val stateFlow: MutableSharedFlow<String> get() = _stateFlow
     private val retrofit : Retrofit = RetrofitInstance.getRetrofitInstance()
     private val apiService  = retrofit.create(ApiService::class.java)
-    fun searchQuery(query:String){
+    fun searchQuery(query:String , page : Int){
         viewModelScope.launch {
             try {
-                val response  = apiService.searchMulti(query)
+                val response = apiService.searchMulti(query,page)
                 if(response.isSuccessful){
-                    result  = response.body()?.results!!
+                    listToBeAdded = response.body()?.results
+                    if(page == 1){
+                        result = listToBeAdded?.toMutableList()!!
+                    }
+                    else {
+                        listToBeAdded?.toMutableList()?.let { result.addAll(it) }
+                    }
+
                     emitEvent("search result fetched")
                 }
                 else{

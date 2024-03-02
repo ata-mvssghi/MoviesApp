@@ -89,7 +89,7 @@ class SearchAdapter(
         holder.itemView.setOnClickListener {
             val currentItem = differ.currentList.get(position)
             if(currentItem.media_type.equals("movie")){
-                val movie  = Movie(currentItem.id!!,currentItem.original_language,currentItem.poster_path,currentItem.title,currentItem.vote_average!!,currentItem.vote_count!!
+                val movie  = Movie(currentItem.id!!,currentItem.original_language,currentItem.poster_path,currentItem.name,currentItem.vote_average!!,currentItem.vote_count!!
                     ,currentItem.original_language!!,currentItem.release_date,currentItem.popularity!!,currentItem.overview!!)
                 val action = SearchFragmentDirections.actionSearchFragmentToMovieDetailFragment(movie,true)
                 naveController.navigate(action)
@@ -120,6 +120,7 @@ class SearchAdapter(
         binding.movieTitleSearch.visibility = View.VISIBLE
         binding.scoreSearch.visibility = View.VISIBLE
         binding.productionSearch.visibility = View.VISIBLE
+        binding.moviePoster.visibility = View.VISIBLE
     }
 
 
