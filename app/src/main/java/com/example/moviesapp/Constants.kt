@@ -1,6 +1,9 @@
 package com.example.moviesapp
 
+
+
 object  Constants {
+    const val ApiKey = BuildConfig.API_KEY
     enum class ImageType{
         poster,
         backDrop,
