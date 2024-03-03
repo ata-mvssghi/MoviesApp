@@ -25,5 +25,11 @@ We make use of the Navigation component and Navigation Graph, along with Safe Ar
 
 8. Pagination for Endless Scrolling
 To enhance user experience, the app incorporates a pagination feature for endless scrolling. This ensures a smooth and uninterrupted exploration of the vast movie and series collection.
-![Media_240303_224813](https://github.com/ata-mvssghi/MoviesApp/assets/99190904/0d1e319e-cf5d-42a6-8c74-8d5797431df8)
+
+![Screenshot_2024-03-03-23-15-12-424_com example moviesapp](https://github.com/ata-mvssghi/MoviesApp/assets/99190904/9698cd2d-0f7b-45b2-b5c9-52e57ff19e46)
+
+![Screenshot_2024-03-03-23-15-39-306_com example moviesapp](https://github.com/ata-mvssghi/MoviesApp/assets/99190904/3615b2fa-a783-42c9-b7a9-06dfa59b4a06)
+![Screenshot_2024-03-03-23-15-44-498_com example moviesapp](https://github.com/ata-mvssghi/MoviesApp/assets/99190904/be2d199b-a50d-4517-a753-2c4ed0add3b2)
+![Screenshot_2024-03-03-23-15-52-534_com example moviesapp](https://github.com/ata-mvssghi/MoviesApp/assets/99190904/0f6876d6-945d-42a2-ba77-b72b0470b56b)
+![Screenshot_2024-03-03-23-16-02-828_com example moviesapp](https://github.com/ata-mvssghi/MoviesApp/assets/99190904/e7a50d81-4234-4454-8d90-eb1794d96f86)
 
